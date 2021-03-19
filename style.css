@@ -1,14 +1,63 @@
-.Container {
-  display: grid;
-  grid-template-rows: auto;
-  text-align: center;
+
+/* This section defines properties for the  viewport class. Any properties added here affects the whole page (the body tag) */
+.viewport {
+  background-color: rgba(0, 0, 150, 0.3);
+  margin: auto 0;
+  font-family: Arial;
+}
+
+/* This section defines properties for the container class. */
+.container {
+  display: flex;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  align-items: center;
   justify-content: center;
+  height: 100vh;
+  background: -webkit-linear-gradient(top, #BFDDD7 0%,#99C7BD 100%);
 }
 
 
-header {
-  color: rgba(255, 0, 0, 0.6);
-  text-align: center;
+.main-nav {
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border: 2px solid;
+  border-color: black;
+  font-size: 1.5em;
+  margin: 0;
+  list-style: none;
+  background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
+}
+
+.main-footer {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border: 1px solid;
+  font-size: 1em;
+  margin: 0;
+  list-style: none;
+  background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
+}
+
+.breathing-animation {
+  transition: all 1s;
+  transform: scale(1);
+}
+
+.breathing-animation:hover {
+  transition: all 1s;
+  transform: scale(3);
+}
+
+
+
+
+li {
+  padding: 20px;
 }
 
 footer {
