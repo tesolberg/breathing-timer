@@ -1,66 +1,63 @@
 
 /* This section defines properties for the  viewport class. Any properties added here affects the whole page (the body tag) */
 .viewport {
+  background-color: rgb(0, 0, 150);
   background-color: rgba(0, 0, 150, 0.3);
-  margin: auto 0;
   font-family: Arial;
+  margin: auto 0;
 }
 
 /* This section defines properties for the container class. */
 .container {
+  align-items: center;
+  background: -webkit-linear-gradient(top, #BFDDD7 0%,#99C7BD 100%);
   display: flex;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
-  background: -webkit-linear-gradient(top, #BFDDD7 0%,#99C7BD 100%);
+  justify-content: center;
 }
 
 
 .main-nav {
+  background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
+  border-color: black;
   display: flex;
+  font-size: 1.5em;
+  list-style: none;
+  margin: 0;
   position: fixed;
   top: 0;
   width: 100%;
-  border: 2px solid;
-  border-color: black;
-  font-size: 1.5em;
-  margin: 0;
-  list-style: none;
-  background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
 }
 
 .main-footer {
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  border: 1px solid;
-  font-size: 1em;
-  margin: 0;
-  list-style: none;
   background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
+  bottom: 0;
+  display: flex;
+  font-size: 1em;
+  list-style: none;
+  margin: 0;
+  position: fixed;
+  width: 100%;
 }
 
 .breathing-animation {
-  transition: all 1s;
   transform: scale(1);
+  transition: all 1s;
 }
 
 .breathing-animation:hover {
-  transition: all 1s;
   transform: scale(3);
+  transition: all 1s;
 }
-
-
-
 
 li {
   padding: 20px;
 }
 
 footer {
+  color: rgb(0, 200, 0);
   color: rgba(0, 200, 0, 0.7);
   text-align: center;
 }
