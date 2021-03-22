@@ -55,6 +55,7 @@
   width: 100%;
 }
 
+
 .breathing-animation {
   transform: scale(1);
   transition: all 1s;
