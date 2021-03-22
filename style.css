@@ -18,10 +18,18 @@
   justify-content: center;
 }
 
+.visitor-counter {
+  padding: 20px;
+  position: fixed;
+  right: 0;
+  top: 100px;
+}
+
 
 .main-nav {
   background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
   border-color: black;
+  box-shadow: 10px 5px 8px #888888;
   display: flex;
   font-size: 1.5em;
   list-style: none;
@@ -60,6 +68,7 @@
 li {
   background: rgb(0, 255, 0);
   background: rgba(0, 200, 0, 0.25);
+  box-shadow: 10px 5px 8px #888888;
   margin: 20px;
   padding: 20px;
 }
