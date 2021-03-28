@@ -1,19 +1,25 @@
-var numberInput = document.getElementById('numberinput');
+var circleScale = document.getElementById('circlescale');
+var hyperVentFreq = document.getElementById('hyperventfreq')
 var circle = document.getElementById('circle');
 
 
+function changeHyperVentFreq () {
+  circle.style.transition = "all " + hyperVentFreq.value + "s";
+}
+
 function changeCircleScale() {
-  circle.style.transform = "scale( " + numberinput.value + ")";
+  circle.style.transform = "scale( " + circleScale.value + ")";
 }
 
 
 function onKeyConfirm(event) {
-  if (numberInput.value.length > 0 && event.keyCode === 13) {
-    numberInput.value = "";
-
+  if (circleScale.value.length > 0 && event.keyCode === 13) {
+    changeCircleScale();
+    circleScale.value = "";
   }
 }
 
 
-addEventListener("input", changeCircleScale);
-numberInput.addEventListener("keypress", onKeyConfirm);
+addEventListener("input", changeHyperVentFreq);
+circleScale.addEventListener("input", changeCircleScale);
+//circleScale.addEventListener("keypress", onKeyConfirm);
