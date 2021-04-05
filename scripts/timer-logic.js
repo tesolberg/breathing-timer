@@ -1,4 +1,4 @@
-var breathingInterval = 1500;
+var breathingInterval = 1400;
 var numberOfBreaths = 3;
 var breathCount = 0;
 
