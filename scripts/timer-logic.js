@@ -1,4 +1,4 @@
-var breathingInterval = 1000;
+var breathingInterval = 1500;
 var numberOfBreaths = 3;
 var breathCount = 0;
 
@@ -6,7 +6,7 @@ var breatheIn = false;
 
 function BreathInOut(){
     breatheIn = !breatheIn;
-    console.log(breatheIn);
+    breatheIn ? console.log("Breathe in...") : console.log("Breathe out...")
 }
 
 function RunTimer(){
