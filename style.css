@@ -61,10 +61,6 @@
   transition: all 1s;
 }
 
-.breathing-animation:hover {
-  transform: scale(3);
-  transition: all 1s;
-}
 
 li {
   background: rgb(0, 255, 0);
