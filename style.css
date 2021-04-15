@@ -1,85 +1,68 @@
-
-/* This section defines properties for the  viewport class. Any properties added here affects the whole page (the body tag) */
-.viewport {
-  background-color: rgb(0, 0, 150);
-  background-color: rgba(0, 0, 150, 0.3);
-  font-family: Arial;
-  margin: auto 0;
+body {
+  margin: 0;
 }
 
 /* This section defines properties for the container class. */
-.container {
-  align-items: center;
-  background: -webkit-linear-gradient(top, #BFDDD7 0%,#99C7BD 100%);
+.flex-container {
   display: flex;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  flex-direction: column;
+  background: -webkit-linear-gradient(top, #BFDDD7 0%,#097e64 100%);
   height: 100vh;
+}
+
+
+.flex-item-header {
+  display: flex;
+  flex: 1;
   justify-content: center;
-}
-
-.visitor-counter {
-  padding: 20px;
-  position: fixed;
-  right: 0;
-  top: 100px;
-}
-
-
-.main-nav {
   background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
   border-color: black;
   box-shadow: 10px 5px 8px #888888;
-  display: flex;
   font-size: 1.5em;
   list-style: none;
-  margin: 0;
-  position: fixed;
-  top: 0;
   width: 100%;
+  height: 100px
+  
 }
 
-.about {
-  position: fixed;
-  right: 0;
-}
-
-.main-footer {
-  background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
-  bottom: 0;
+.flex-item-main-page {
   display: flex;
-  font-size: 1em;
-  list-style: none;
-  margin: 0;
-  position: fixed;
-  width: 100%;
+  flex: 12;
+  align-items: center;
+  justify-content: center;
 }
 
-.breathing-animation {
+.flex-item-footer {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  background: -webkit-linear-gradient(top, #FFF2DD 0%,#FFE9C4 100%);
+  border-color: black;
+  box-shadow: 10px 5px 8px #888888;
+  font-size: 1.5em;
+  list-style: none;
+  width: 100%;
+  height: 100px;
+  justify-content: center;
+}
+
+.circleimage {
+  display: block;
   transform: scale(1);
   transition: all 1s;
 }
 
-.breathing-animation:hover {
-  transform: scale(3);
+.circleimage:hover {
+  transform: scale(2);
   transition: all 1s;
 }
 
+
 li {
-  background: rgb(0, 255, 0);
-  background: rgba(0, 200, 0, 0.25);
-  box-shadow: 10px 5px 8px #888888;
-  margin: 20px;
-  padding: 20px;
-}
-
-li:hover {
-  transform: scale(1.05);
-  transition: all 0.3s;
-}
-
-footer {
-  color: rgb(0, 200, 0);
-  color: rgba(0, 200, 0, 0.7);
-  text-align: center;
+  list-style: none;
+  font-size: 16px;
+  border: 1px solid black;
+  align-self: center;
+  margin: 10px;
+  padding: 10px
 }

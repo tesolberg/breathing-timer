@@ -1,19 +1,22 @@
-var numberInput = document.getElementById('numberinput');
-var circle = document.getElementById('circle');
+
+var startBtn = document.getElementById('startbtn');
+var circle = document.getElementById('circle')
 
 
-function changeCircleScale() {
-  circle.style.transform = "scale( " + numberinput.value + ")";
+
+function inputField() {
+  numberOfBreaths = document.getElementById('hyperventnumber').value;
+  console.log(numberOfBreaths);
+}
+
+function onClickStart() {
+  circle.style.transform = 'scale(2)';  
 }
 
 
-function onKeyConfirm(event) {
-  if (numberInput.value.length > 0 && event.keyCode === 13) {
-    numberInput.value = "";
-
-  }
-}
 
 
-addEventListener("input", changeCircleScale);
-numberInput.addEventListener("keypress", onKeyConfirm);
+
+
+
+//startBtn.addEventListener("click", onClickStart());
