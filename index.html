@@ -2,36 +2,41 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Main Page</title>
+    <title>Breath Exercise</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
-  <body class="viewport">
-    <nav>
-      <ul class="main-nav blue">
+
+
+
+  <body>
+    <div class="flex-container">
+      <header class="flex-item-header">
         <li>
-         <label for="hyperventfreq">Hyperventilation Speed</input> <input type="range" step="0.5" min="0.5" max="5" id ="hyperventfreq" placeholder="0 - 5">
-        </li>
-        <li>
-          <label for="circlescale">Circle Size </label> <input type="range" step="0.5" min="0.5" max="4.0" id="circlescale" placeholder="0 - 4">
-        </li>
-        <li>
-          <label for="hyperventnumber">Breaths </label> <input type="range" step="1" min="1" max="20" id="hyperventnumber" placeholder="1 - 20">
+          <label>Number of inhales/exhales</label><input type="number" step="1" min="1" max="30" placeholder="1 - 30" id="hyperventnumber" oninput="inputField()"/>
         </li>
         <li>
-          <button id="startbtn">Start</button>
+          <button id="startbtn" onclick="onClickStart()">Start</button>
         </li>
-        <li class="about">
-          About
+      </header>
+      <div class="flex-item-main-page">
+        <img id="circle" class="circleimage" src="./images/circle2.png" width="200px" height="200px" alt="">
+      </div>
+      <footer class="flex-item-footer">
+        <li>
+          Footer item 1 (Default setting 1?)
         </li>
-      </ul>
-      <ul class="main-footer">
-        <li>Footer item 1 (Default setting 1?)</li>
-        <li>Footer item 2 (Default setting 2?)</li>
-        <li>Footer item 3 (Default setting 3?)</li>
-      </ul>
-    </nav>
-    <div class="container">
-      <img id="circle" class="breathing-animation" src="./images/circle2.png" width="200px" height="200px" alt="">
+        <li>
+          Footer item 2 (Default setting 2?)
+        </li>
+        <li>
+          Footer item 3 (Default setting 3?)
+        </li>
+      </footer>
+    <div>
     <script type="text/javascript" src="./scripts/javascript.js"></script>
   </body>
+
+
+
+
 </html>

@@ -1,21 +1,22 @@
-var circleScale = document.getElementById('circlescale');
-var hyperVentFreq = document.getElementById('hyperventfreq');
-var circle = document.getElementById('circle');
-var breathNumber = document.getElementById('hyperventnumber');
-var startButton = document.getElementById('startbtn');
-var circleNormalSize = 1;
-var i = 0;
+
+var startBtn = document.getElementById('startbtn');
+var circle = document.getElementById('circle')
 
 
-function changeHyperVentFreq () {
-  circle.style.transition = "all " + hyperVentFreq.value + "s";
+
+function inputField() {
+  numberOfBreaths = document.getElementById('hyperventnumber').value;
+  console.log(numberOfBreaths);
 }
 
-function changeCircleScale() {
-  circle.style.transform = "scale( " + circleScale.value + ")";
-  setTimeout(() => {circle.style.transform = "scale( " + circleNormalSize + ")";}, 2000);
+function onClickStart() {
+  circle.style.transform = 'scale(2)';  
 }
 
 
 
-startButton.addEventListener('click', changeCircleScale);
+
+
+
+
+//startBtn.addEventListener("click", onClickStart());
