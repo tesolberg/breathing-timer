@@ -6,10 +6,10 @@ function StartTimer() { ContinueRound(); }
 
 function StopTimer() { exit = true; }
 
-var breathingInterval = 1500;   // Duration of one full breath cycle
-var breathHoldLength = 5;       // Duration of breath hold phase
+var breathingInterval = 1600;   // Duration of one full breath cycle (ms)
+var breathHoldLength = 90;       // Duration of breath hold phase (s)
 var numberOfRounds = 3;         // Number of rounds (one round: hyperventilation, breath hold and recovery breath)
-var numberOfBreaths = 3;        // Number of breaths per hyperventilation phase
+var numberOfBreaths = 30;        // Number of breaths per hyperventilation phase
 
 
 
@@ -47,15 +47,14 @@ function ContinueRound() {
             roundCount++;
 
             // Exit after completing all rounds
-            if (roundCount >= numberOfRounds) return;
+            if (roundCount > numberOfRounds) return;
+            console.log("Round: " + roundCount + " begins...");
 
             currentPhase = phase.HYPERVENTILATION
             console.log("Starting breathing");
             breathCount = 0;
 
-
             // Start hyperventilation
-            console.log("Round: " + roundCount + " begins...");
             HyperventilateInOrOut();
             break;
         case phase.HYPERVENTILATION:
@@ -66,7 +65,8 @@ function ContinueRound() {
             break;
         case phase.BREATHHOLD:
             currentPhase = phase.RECOVERYBREATH
-            console.log("Starting recovery breath");
+            breathHoldCount = 0;
+            console.log("Recovery breath.. breathe in...");
             RecoveryBreath();
             break;
     }
@@ -75,7 +75,20 @@ function ContinueRound() {
 
 // TODO
 function RecoveryBreath() {
-    ContinueRound();
+    // IF skip or recovery breath duration reached -> return control to round manager
+    if (skip || exit || (breathHoldCount >= 15)) {
+        skip = false;
+        ContinueRound();
+    }
+    else {
+        // Increment breath hold count
+        breathHoldCount++;
+
+        console.log(breathHoldCount);
+
+        // Wait 1 second and start function again
+        setTimeout(RecoveryBreath, 1000);
+    }
 }
 
 
