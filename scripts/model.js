@@ -2,9 +2,9 @@
 ////// API //////
 /////////////////
 
-function StartTimer(){ContinueRound();}
+function StartTimer() { ContinueRound(); }
 
-function StopTimer(){exit = true;}
+function StopTimer() { exit = true; }
 
 var breathingInterval = 1500;   // Duration of one full breath cycle
 var breathHoldLength = 5;       // Duration of breath hold phase
@@ -35,23 +35,28 @@ var currentPhase = phase.RECOVERYBREATH;    // Current phase of current round
 
 
 function ContinueRound() {
-    if (exit){
+    if (exit) {
         exit = false;
         return;
-    } 
+    }
 
     // Cycles phase 
     switch (currentPhase) {
         case phase.RECOVERYBREATH:
+            // Increment round number
+            roundCount++;
+
+            // Exit after completing all rounds
+            if (roundCount >= numberOfRounds) return;
+
             currentPhase = phase.HYPERVENTILATION
             console.log("Starting breathing");
             breathCount = 0;
-            // Increment round number
-            roundCount++;
-            
+
+
             // Start hyperventilation
             console.log("Round: " + roundCount + " begins...");
-            HyperventilateInOrOut();        
+            HyperventilateInOrOut();
             break;
         case phase.HYPERVENTILATION:
             currentPhase = phase.BREATHHOLD
@@ -63,18 +68,18 @@ function ContinueRound() {
             currentPhase = phase.RECOVERYBREATH
             console.log("Starting recovery breath");
             RecoveryBreath();
-            break;        
+            break;
     }
 }
 
 
 // TODO
-function RecoveryBreath(){
+function RecoveryBreath() {
     ContinueRound();
 }
 
 
-function HoldBreath(){
+function HoldBreath() {
     // IF skip or max breaht hold count reached -> return control to round manager
     if (skip || exit || (breathHoldCount >= breathHoldLength)) {
         skip = false;
@@ -85,7 +90,7 @@ function HoldBreath(){
         breathHoldCount++;
 
         console.log(breathHoldCount);
-        
+
         // Wait 1 second and start function again
         setTimeout(HoldBreath, 1000);
     }
