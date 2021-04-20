@@ -4,12 +4,17 @@
 
 function StartTimer() { ContinueRound(); }
 
-function StopTimer() { exit = true; }
+function StopTimer() {
+    exit = true;
+    roundCount = 0;
+    currentPhase = phase.RECOVERYBREATH;
+    breatheIn = false;
+}
 
 var breathingInterval = 1600;   // Duration of one full breath cycle (ms)
-var breathHoldLength = 90;       // Duration of breath hold phase (s)
+var breathHoldLength = 7;       // Duration of breath hold phase (s)
 var numberOfRounds = 3;         // Number of rounds (one round: hyperventilation, breath hold and recovery breath)
-var numberOfBreaths = 30;        // Number of breaths per hyperventilation phase
+var numberOfBreaths = 4;        // Number of breaths per hyperventilation phase
 
 
 
@@ -55,6 +60,8 @@ function ContinueRound() {
             console.log("Starting breathing");
             breathCount = 0;
 
+            PlayBreathAnimation(false);      // TODO: Decouple
+
             // Start hyperventilation
             HyperventilateInOrOut();
             break;
@@ -68,6 +75,7 @@ function ContinueRound() {
             currentPhase = phase.RECOVERYBREATH
             breathHoldCount = 0;
             console.log("Recovery breath.. breathe in...");
+            PlayBreathAnimation(true);      // TODO: Decouple
             RecoveryBreath();
             break;
     }
@@ -129,5 +137,22 @@ function HyperventilateInOrOut() {
 
         // Wait for breathingInterval / 2 then continue hyperventilation
         setTimeout(HyperventilateInOrOut, breathingInterval);
+
+        PlayBreathAnimation(breatheIn);
     }
+}
+
+function PlayBreathAnimation(inbreath) {
+    if (inbreath) {
+        circleEnlarge(breathingInterval);
+    }
+    else {
+        circleShrink(breathingInterval);
+    }
+}
+
+var circleText = document.getElementById("timerText").innerHTML;
+
+function DisplayTextInCircle(text){
+    circleText = text;
 }
