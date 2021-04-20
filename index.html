@@ -9,18 +9,18 @@
     <div class="flex-container">
       <header class="flex-item-header">
         <li>
-          <label>Antall Pust</label><input type="number" step="1" min="1" max="30" placeholder="1 - 30" id="hyperventnumber"/>
-          <label>Runder</label><input type="number" step="1" min="1" max="5" placeholder="1 - 5" id="runder"/>
+          <label>Antall Pust</label><input type="number" step="1" min="1" max="30" value="30" placeholder="1 - 30" id="hyperventnumber"/>
+          <label>Runder</label><input type="number" step="1" min="1" max="5" value="3" placeholder="1 - 5" id="runder"/>
           <label>Pustehastighet</label><input type="range" step="400" min="1200" max="2000" id="puste_hastighet"/>
-          <label>Holde pusten</label><input type="number" step="1" min="1" max="30" placeholder="1 - 30" id="holde_pusten"/>
+          <label>Holde pusten</label><input type="number" step="1" min="1" max="30" value="90" placeholder="1 - 30" id="holde_pusten"/>
         </li>
         <li>
-          <button id="startbtn" onclick="onClickStart()">Start</button>
+          <button id="startbtn">Start/Stop</button>
         </li>
       </header>
       <div class="flex-item-main-page">
         <img id="circle" class="circleimage" src="./images/circle2.png" width="200px" height="200px" alt="">
-        <div class="imagetext">test</div>
+        <div class="imagetext" id="timerText">test</div>
       </div>
       <footer class="flex-item-footer">
         <li>
@@ -36,6 +36,7 @@
     <div>
     <script type="text/javascript" src="./scripts/view.js"></script>
     <script type="text/javascript" src="./scripts/model.js"></script>
+    <script type="text/javascript" src="./scripts/controller.js"></script>
     <script type="text/javascript" src="./scripts/test.js"></script>
   </body>
 </html>

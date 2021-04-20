@@ -5,9 +5,7 @@ var circle = document.getElementById('circle')
 ///API///
 /////////
 
-//input id's: hyperventnumber, runder, puste_hastighet, holde_pusten
-
-
+//input id's: hyperventnumber, runder, puste_hastighet, holde_pusten, startbtn, timerText
 
 
 
@@ -21,5 +19,3 @@ function circleShrink(transitionTime) {
   circle.style.transform = 'scale(1)';
   circle.style.transition = 'all ' + transitionTime +'ms';    
 }
-
-
