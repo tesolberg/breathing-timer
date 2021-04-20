@@ -1,22 +1,25 @@
-
-var startBtn = document.getElementById('startbtn');
 var circle = document.getElementById('circle')
 
 
+/////////
+///API///
+/////////
 
-function inputField() {
-  numberOfBreaths = document.getElementById('hyperventnumber').value;
-  console.log(numberOfBreaths);
+//input id's: hyperventnumber, runder, puste_hastighet, holde_pusten
+
+
+
+
+
+function circleEnlarge(transitionTime) {
+  circle.style.transform = 'scale(2)';
+  circle.style.transition = 'all ' + transitionTime +'ms';  
 }
 
-function onClickStart() {
-  circle.style.transform = 'scale(2)';  
+
+function circleShrink(transitionTime) {
+  circle.style.transform = 'scale(1)';
+  circle.style.transition = 'all ' + transitionTime +'ms';    
 }
 
 
-
-
-
-
-
-//startBtn.addEventListener("click", onClickStart());

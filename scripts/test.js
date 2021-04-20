@@ -1,1 +1,1 @@
-StartTimer();
+//StartTimer();

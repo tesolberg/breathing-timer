@@ -9,7 +9,10 @@
     <div class="flex-container">
       <header class="flex-item-header">
         <li>
-          <label>Number of inhales/exhales</label><input type="number" step="1" min="1" max="30" placeholder="1 - 30" id="hyperventnumber" oninput="inputField()"/>
+          <label>Antall Pust</label><input type="number" step="1" min="1" max="30" placeholder="1 - 30" id="hyperventnumber"/>
+          <label>Runder</label><input type="number" step="1" min="1" max="5" placeholder="1 - 5" id="runder"/>
+          <label>Pustehastighet</label><input type="range" step="400" min="1200" max="2000" id="puste_hastighet"/>
+          <label>Holde pusten</label><input type="number" step="1" min="1" max="30" placeholder="1 - 30" id="holde_pusten"/>
         </li>
         <li>
           <button id="startbtn" onclick="onClickStart()">Start</button>
@@ -17,6 +20,7 @@
       </header>
       <div class="flex-item-main-page">
         <img id="circle" class="circleimage" src="./images/circle2.png" width="200px" height="200px" alt="">
+        <div class="imagetext">test</div>
       </div>
       <footer class="flex-item-footer">
         <li>
@@ -30,7 +34,7 @@
         </li>
       </footer>
     <div>
-    <script type="text/javascript" src="./scripts/javascript.js"></script>
+    <script type="text/javascript" src="./scripts/view.js"></script>
     <script type="text/javascript" src="./scripts/model.js"></script>
     <script type="text/javascript" src="./scripts/test.js"></script>
   </body>
