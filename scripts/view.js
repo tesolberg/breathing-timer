@@ -5,7 +5,7 @@ var circle = document.getElementById('circle')
 ///API///
 /////////
 
-//input id's: hyperventnumber, runder, puste_hastighet, holde_pusten, startbtn
+//input id's: hyperventnumber, runder, puste_hastighet, holde_pusten, startbtn, timerText
 
 
 
