@@ -94,6 +94,8 @@ function RecoveryBreath() {
         breathHoldCount++;
 
         console.log(breathHoldCount);
+        DisplayTextInCircle(breathHoldCount);
+
 
         // Wait 1 second and start function again
         setTimeout(RecoveryBreath, 1000);
@@ -112,6 +114,7 @@ function HoldBreath() {
         breathHoldCount++;
 
         console.log(breathHoldCount);
+        DisplayTextInCircle(breathHoldCount);
 
         // Wait 1 second and start function again
         setTimeout(HoldBreath, 1000);
@@ -138,7 +141,8 @@ function HyperventilateInOrOut() {
         // Wait for breathingInterval / 2 then continue hyperventilation
         setTimeout(HyperventilateInOrOut, breathingInterval);
 
-        PlayBreathAnimation(breatheIn);
+        PlayBreathAnimation(breatheIn); //TODO: Decouple
+        DisplayTextInCircle(breathCount);
     }
 }
 
