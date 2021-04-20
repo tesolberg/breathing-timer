@@ -2,34 +2,36 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Main Page</title>
+    <title>Breath Exercise</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
-  <body class="viewport">
-    <nav>
-      <ul class="main-nav blue">
+  <body>
+    <div class="flex-container">
+      <header class="flex-item-header">
         <li>
-          <label for="rangeslider">Range slider</label> <input id="" type="range">
-        </li>
-        <li>
-         <label for="textinput">Text input</input> <input type="text" placeholder="Not used">
+          <label>Number of inhales/exhales</label><input type="number" step="1" min="1" max="30" placeholder="1 - 30" id="hyperventnumber" oninput="inputField()"/>
         </li>
         <li>
-          <label for="numberinput">Number input</label> <input type="number" id="numberinput" placeholder="Enter number">
+          <button id="startbtn" onclick="onClickStart()">Start</button>
         </li>
-        <li class="about">
-          About
+      </header>
+      <div class="flex-item-main-page">
+        <img id="circle" class="circleimage" src="./images/circle2.png" width="200px" height="200px" alt="">
+      </div>
+      <footer class="flex-item-footer">
+        <li>
+          Footer item 1 (Default setting 1?)
         </li>
-      </ul>
-      <ul class="main-footer">
-        <li>Footer item 1</li>
-        <li>Footer item 2</li>
-        <li>Footer item 3</li>
-      </ul>
-    </nav>
-    <div class="container">
-      <img id="circle" class="breathing-animation" src="./images/circle2.png" width="200px" height="200px" alt="">
-    </div>
+        <li>
+          Footer item 2 (Default setting 2?)
+        </li>
+        <li>
+          Footer item 3 (Default setting 3?)
+        </li>
+      </footer>
+    <div>
     <script type="text/javascript" src="./scripts/javascript.js"></script>
+    <script type="text/javascript" src="./scripts/model.js"></script>
+    <script type="text/javascript" src="./scripts/test.js"></script>
   </body>
 </html>
