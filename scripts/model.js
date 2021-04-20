@@ -69,6 +69,7 @@ function ContinueRound() {
             currentPhase = phase.BREATHHOLD
             console.log("Starting breath hold now");
             breathHoldCount = 0;
+            PlayBreathAnimation(false);      // TODO: Decouple
             HoldBreath();
             break;
         case phase.BREATHHOLD:
@@ -155,8 +156,8 @@ function PlayBreathAnimation(inbreath) {
     }
 }
 
-var circleText = document.getElementById("timerText").innerHTML;
+var circleText = document.getElementById("timerText");
 
 function DisplayTextInCircle(text){
-    circleText = text;
+    circleText.innerHTML = text;
 }
