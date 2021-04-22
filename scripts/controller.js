@@ -1,16 +1,21 @@
 var moduleRunning = false;
 
 const startStopBtn = document.getElementById("startbtn");
-//const circle = document.getElementById("circle");
-
+const circle_ = document.getElementById("circle");
 
 function StartBtnClicked(){
+    // Stop
     if(moduleRunning){
         moduleRunning = false;
+        startStopBtn.innerHTML = "Start";
         StopTimer();
     }
+    // Start
     else{
         moduleRunning = true;
+
+        // Update button text
+        startStopBtn.innerHTML = "Stop";
 
         // Update values from user input
         breathingInterval = document.getElementById("puste_hastighet").value;        
@@ -26,4 +31,4 @@ function SkipClicked(){
 }
 
 startStopBtn.onclick = StartBtnClicked;
-circle.onclick = SkipClicked;
+circle_.onclick = SkipClicked;
