@@ -51,7 +51,11 @@ function ModelChanged(){
 
 function ContinueRound() {
     if (exit) {
+        // Cleanup
         exit = false;
+        currentPhase = phase.RECOVERYBREATH;
+
+        ModelChanged();
         return;
     }
 
@@ -62,30 +66,28 @@ function ContinueRound() {
             roundCount++;
 
             // Exit after completing all rounds
-            if (roundCount > numberOfRounds) return;
+            if (roundCount > numberOfRounds){
+                ModelChanged();
+                return;
+            }
+            
+            // For debug
             console.log("Round: " + roundCount + " begins...");
+            console.log("Starting breathing");
 
             currentPhase = phase.HYPERVENTILATION
-            console.log("Starting breathing");
-            breathCount = 0;
-
-            PlayBreathAnimation(false);      // TODO: Decouple
 
             // Start hyperventilation
             HyperventilateInOrOut();
             break;
         case phase.HYPERVENTILATION:
+            console.log("Starting breath hold now");        // For debug
             currentPhase = phase.BREATHHOLD
-            console.log("Starting breath hold now");
-            breathHoldCount = 0;
-            PlayBreathAnimation(false);      // TODO: Decouple
             HoldBreath();
             break;
         case phase.BREATHHOLD:
+            console.log("Recovery breath.. breathe in..."); // For debug
             currentPhase = phase.RECOVERYBREATH
-            breathHoldCount = 0;
-            console.log("Recovery breath.. breathe in...");
-            PlayBreathAnimation(true);      // TODO: Decouple
             RecoveryBreath();
             break;
     }
@@ -97,6 +99,9 @@ function RecoveryBreath() {
     // IF skip or recovery breath duration reached -> return control to round manager
     if (skip || exit || (breathHoldCount >= 15)) {
         skip = false;
+        breathHoldCount = 0;
+        breatheIn = false;
+
         ContinueRound();
     }
     else {
@@ -104,9 +109,8 @@ function RecoveryBreath() {
         breathHoldCount++;
 
         console.log(breathHoldCount);
-        DisplayTextInCircle(breathHoldCount);
         
-
+        ModelChanged(); // Raise event
 
         // Wait 1 second and start function again
         setTimeout(RecoveryBreath, 1000);
@@ -118,14 +122,18 @@ function HoldBreath() {
     // IF skip or max breaht hold count reached -> return control to round manager
     if (skip || exit || (breathHoldCount >= breathHoldLength)) {
         skip = false;
+        breathHoldCount = 0;
+        breatheIn = false;
+
         ContinueRound();
     }
     else {
         // Increment breath hold count
         breathHoldCount++;
 
+        ModelChanged();
+
         console.log(breathHoldCount);
-        DisplayTextInCircle(breathHoldCount);
 
         // Wait 1 second and start function again
         setTimeout(HoldBreath, 1000);
@@ -137,6 +145,9 @@ function HyperventilateInOrOut() {
     // IF skip or max breaht count reached and finished with out breath -> return control to round manager
     if (skip || exit || (breathCount >= numberOfBreaths && !breatheIn)) {
         skip = false;
+        breathCount = 0;
+        breatheIn = false;
+
         ContinueRound();
     }
     else {
@@ -146,31 +157,13 @@ function HyperventilateInOrOut() {
         // Increment breath count on every breath out
         if (breatheIn) breathCount++;
 
-        // Log result
+        // For debugging
         breatheIn ? console.log("Breathe in... (" + breathCount + ")") : console.log("Breathe out... (" + breathCount + ")")
 
         // Wait for breathingInterval / 2 then continue hyperventilation
         setTimeout(HyperventilateInOrOut, breathingInterval);
-
-        PlayBreathAnimation(breatheIn); //TODO: Decouple
-        DisplayTextInCircle(breathCount);
         
         // Raise event
         ModelChanged();
     }
-}
-
-function PlayBreathAnimation(inbreath) {
-    if (inbreath) {
-        circleEnlarge(breathingInterval);
-    }
-    else {
-        circleShrink(breathingInterval);
-    }
-}
-
-var circleText = document.getElementById("timerText");
-
-function DisplayTextInCircle(text){
-    circleText.innerHTML = text;
 }
