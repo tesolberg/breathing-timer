@@ -30,5 +30,11 @@ function SkipClicked(){
     skip = true;
 }
 
+var controllerModelListener = function OnModelChanged(){
+    console.log("Controller detected tick");
+}
+
 startStopBtn.onclick = StartBtnClicked;
 circle_.onclick = SkipClicked;
+
+modelChangedEvent.push(controllerModelListener);

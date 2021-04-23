@@ -16,6 +16,7 @@ var breathHoldLength = 7;       // Duration of breath hold phase (s)
 var numberOfRounds = 3;         // Number of rounds (one round: hyperventilation, breath hold and recovery breath)
 var numberOfBreaths = 4;        // Number of breaths per hyperventilation phase
 
+var modelChangedEvent = [];     // Void no arguments delegate for model changed
 
 
 //////////////////
@@ -38,6 +39,14 @@ var skip = false;                           // Skips current phase if set to tru
 var exit = false;                           // Halts execution if set to true
 var currentPhase = phase.RECOVERYBREATH;    // Current phase of current round
 
+
+
+// Function for running the delegate
+function ModelChanged(){
+    modelChangedEvent.forEach(element => {
+        element();
+    });
+}
 
 
 function ContinueRound() {
@@ -96,6 +105,7 @@ function RecoveryBreath() {
 
         console.log(breathHoldCount);
         DisplayTextInCircle(breathHoldCount);
+        
 
 
         // Wait 1 second and start function again
@@ -144,6 +154,9 @@ function HyperventilateInOrOut() {
 
         PlayBreathAnimation(breatheIn); //TODO: Decouple
         DisplayTextInCircle(breathCount);
+        
+        // Raise event
+        ModelChanged();
     }
 }
 
