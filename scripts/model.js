@@ -1,8 +1,12 @@
 // Enum for tracking phases
 const phase = {
+    PREHYPERVENTILATION: "preHyperventilation",
     HYPERVENTILATION: "hyperventilation",
+    PREBREATHHOLD: "prebreathHold",
     BREATHHOLD: "breathHold",
+    PRERECOVERYBREATH: "preRecoveryBreath",
     RECOVERYBREATH: "recoveryBreath",
+    POSTRECOVERYBREATH: "postRecoveryBreath",
 }
 
 /////////////////
@@ -28,10 +32,10 @@ var numberOfBreaths = 4;        // Number of breaths per hyperventilation phase
 var modelChangedEvent = [];     // Subscribe to get noticed when model changes its values
 
 // Variables
-var roundCount = 0;                         // Current round
-var counter = 0;                            // Current breath/breath hold in seconds
-var breatheIn = false;                      // Breathe in = true, breathe out = false
-var currentPhase = phase.RECOVERYBREATH;    // Current phase of current round
+var roundCount = 0;                             // Current round
+var counter = 0;                                // Current breath/breath hold in seconds
+var breatheIn = false;                          // Breathe in = true, breathe out = false
+var currentPhase = phase.POSTRECOVERYBREATH;    // Current phase of current round
 
 
 //////////////////
@@ -46,7 +50,7 @@ var exit = false;                           // Halts execution if set to true
 
 
 // Function for running the delegate/event
-function ModelChanged(){
+function ModelChanged() {
     modelChangedEvent.forEach(element => {
         element();
     });
@@ -57,7 +61,7 @@ function ContinueRound() {
     if (exit) {
         // Cleanup
         exit = false;
-        currentPhase = phase.RECOVERYBREATH;
+        currentPhase = phase.POSTRECOVERYBREATH;
 
         ModelChanged();
         return;
@@ -65,38 +69,47 @@ function ContinueRound() {
 
     // Cycles phase 
     switch (currentPhase) {
-        case phase.RECOVERYBREATH:
-            // Increment round number
+        case phase.POSTRECOVERYBREATH:
             roundCount++;
 
-            // Exit after completing all rounds
-            if (roundCount > numberOfRounds){
+            if (roundCount > numberOfRounds) {
                 ModelChanged();
                 return;
             }
-            
-            // For debug
+
             console.log("Round: " + roundCount + " begins...");
+            currentPhase = phase.PREHYPERVENTILATION
+            ModelChanged();
+            setTimeout(ContinueRound, 3000);
+            break;
+
+        case phase.PREHYPERVENTILATION:
             console.log("Starting breathing");
-
             currentPhase = phase.HYPERVENTILATION
-
-            // Start hyperventilation
+            counter = 0;
             HyperventilateInOrOut();
             break;
+
         case phase.HYPERVENTILATION:
             console.log("Starting breath hold now");        // For debug
             currentPhase = phase.BREATHHOLD
             HoldBreath();
             break;
+
         case phase.BREATHHOLD:
             console.log("Recovery breath.. breathe in..."); // For debug
             currentPhase = phase.RECOVERYBREATH
             RecoveryBreath();
             break;
+        
+        case phase.RECOVERYBREATH:
+            console.log("Good job. Get ready for the next round..."); // For debug
+            currentPhase = phase.POSTRECOVERYBREATH
+            ModelChanged();
+            setTimeout(ContinueRound, 2000);
+            break;
     }
 }
-
 
 function RecoveryBreath() {
     // IF skip or recovery breath duration reached -> return control to round manager
@@ -113,7 +126,7 @@ function RecoveryBreath() {
         breatheIn = true;
 
         console.log(counter);
-        
+
         ModelChanged(); // Raise event
 
         // Wait 1 second and start function again
@@ -126,7 +139,7 @@ function HoldBreath() {
     // IF skip or max breaht hold count reached -> return control to round manager
     if (skip || exit || (counter >= breathHoldLength)) {
         skip = false;
-        counter = 0;
+        counter = -1;
         breatheIn = false;
 
         ContinueRound();
@@ -149,7 +162,7 @@ function HyperventilateInOrOut() {
     // IF skip or max breaht count reached and finished with out breath -> return control to round manager
     if (skip || exit || (counter >= numberOfBreaths && !breatheIn)) {
         skip = false;
-        counter = 0;
+        counter = -1;
         breatheIn = false;
 
         ContinueRound();
@@ -166,7 +179,7 @@ function HyperventilateInOrOut() {
 
         // Wait for breathingInterval / 2 then continue hyperventilation
         setTimeout(HyperventilateInOrOut, breathingInterval);
-        
+
         // Raise event
         ModelChanged();
     }
