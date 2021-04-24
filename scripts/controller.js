@@ -45,10 +45,10 @@ function StartBtnClicked() {
         startStopBtn.innerHTML = "Stop";
 
         // Update values from user input
-        // breathingInterval = document.getElementById("puste_hastighet").value;
-        // breathHoldLength = document.getElementById("holde_pusten").value;
-        // numberOfRounds = document.getElementById("runder").value;
-        // numberOfBreaths = document.getElementById("hyperventnumber").value;
+        breathingInterval = document.getElementById("puste_hastighet").value;
+        breathHoldLength = document.getElementById("holde_pusten").value;
+        numberOfRounds = document.getElementById("runder").value;
+        numberOfBreaths = document.getElementById("hyperventnumber").value;
         StartTimer();
     }
 }
