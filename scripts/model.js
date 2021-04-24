@@ -1,3 +1,10 @@
+// Enum for tracking phases
+const phase = {
+    HYPERVENTILATION: "hyperventilation",
+    BREATHHOLD: "breathHold",
+    RECOVERYBREATH: "recoveryBreath",
+}
+
 /////////////////
 ////// API //////
 /////////////////
@@ -11,44 +18,41 @@ function StopTimer() {
     breatheIn = false;
 }
 
+// Settings
 var breathingInterval = 1600;   // Duration of one full breath cycle (ms)
 var breathHoldLength = 7;       // Duration of breath hold phase (s)
 var numberOfRounds = 3;         // Number of rounds (one round: hyperventilation, breath hold and recovery breath)
 var numberOfBreaths = 4;        // Number of breaths per hyperventilation phase
 
-var modelChangedEvent = [];     // Void no arguments delegate for model changed
+// Model changed event
+var modelChangedEvent = [];     // Subscribe to get noticed when model changes its values
+
+// Variables
+var roundCount = 0;                         // Current round
+var counter = 0;                            // Current breath/breath hold in seconds
+var breatheIn = false;                      // Breathe in = true, breathe out = false
+var currentPhase = phase.RECOVERYBREATH;    // Current phase of current round
 
 
 //////////////////
 //// INTERNAL ////
 //////////////////
 
-// Enum for tracking phases
-const phase = {
-    HYPERVENTILATION: "hyperventilation",
-    BREATHHOLD: "breathHold",
-    RECOVERYBREATH: "recoveryBreath",
-}
 
-// Variables
-var roundCount = 0;                         // Current round
-var breathCount = 0;                        // Current breath this round
-var breathHoldCount = 0;                    // Counter for seconds during breath hold
-var breatheIn = false;                      // Breathe in = true, breathe out = false
+
+// Internal variables
 var skip = false;                           // Skips current phase if set to true
 var exit = false;                           // Halts execution if set to true
-var currentPhase = phase.RECOVERYBREATH;    // Current phase of current round
 
 
-
-// Function for running the delegate
+// Function for running the delegate/event
 function ModelChanged(){
     modelChangedEvent.forEach(element => {
         element();
     });
 }
 
-
+// Primary loop
 function ContinueRound() {
     if (exit) {
         // Cleanup
@@ -94,21 +98,21 @@ function ContinueRound() {
 }
 
 
-// TODO
 function RecoveryBreath() {
     // IF skip or recovery breath duration reached -> return control to round manager
-    if (skip || exit || (breathHoldCount >= 15)) {
+    if (skip || exit || (counter >= 15)) {
         skip = false;
-        breathHoldCount = 0;
+        counter = 0;
         breatheIn = false;
 
         ContinueRound();
     }
     else {
         // Increment breath hold count
-        breathHoldCount++;
+        counter++;
+        breatheIn = true;
 
-        console.log(breathHoldCount);
+        console.log(counter);
         
         ModelChanged(); // Raise event
 
@@ -120,20 +124,20 @@ function RecoveryBreath() {
 
 function HoldBreath() {
     // IF skip or max breaht hold count reached -> return control to round manager
-    if (skip || exit || (breathHoldCount >= breathHoldLength)) {
+    if (skip || exit || (counter >= breathHoldLength)) {
         skip = false;
-        breathHoldCount = 0;
+        counter = 0;
         breatheIn = false;
 
         ContinueRound();
     }
     else {
         // Increment breath hold count
-        breathHoldCount++;
+        counter++;
 
         ModelChanged();
 
-        console.log(breathHoldCount);
+        console.log(counter);
 
         // Wait 1 second and start function again
         setTimeout(HoldBreath, 1000);
@@ -143,9 +147,9 @@ function HoldBreath() {
 
 function HyperventilateInOrOut() {
     // IF skip or max breaht count reached and finished with out breath -> return control to round manager
-    if (skip || exit || (breathCount >= numberOfBreaths && !breatheIn)) {
+    if (skip || exit || (counter >= numberOfBreaths && !breatheIn)) {
         skip = false;
-        breathCount = 0;
+        counter = 0;
         breatheIn = false;
 
         ContinueRound();
@@ -155,10 +159,10 @@ function HyperventilateInOrOut() {
         breatheIn = !breatheIn;
 
         // Increment breath count on every breath out
-        if (breatheIn) breathCount++;
+        if (breatheIn) counter++;
 
         // For debugging
-        breatheIn ? console.log("Breathe in... (" + breathCount + ")") : console.log("Breathe out... (" + breathCount + ")")
+        breatheIn ? console.log("Breathe in... (" + counter + ")") : console.log("Breathe out... (" + counter + ")")
 
         // Wait for breathingInterval / 2 then continue hyperventilation
         setTimeout(HyperventilateInOrOut, breathingInterval);
@@ -167,3 +171,5 @@ function HyperventilateInOrOut() {
         ModelChanged();
     }
 }
+
+

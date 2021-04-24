@@ -1,7 +1,29 @@
-var moduleRunning = false;
-
+// Connecting to View
 const startStopBtn = document.getElementById("startbtn");
 const circle_ = document.getElementById("circle");
+const textInCircle = document.getElementById("timerText");
+startStopBtn.onclick = StartBtnClicked;
+circle_.onclick = SkipClicked;
+
+var moduleRunning = false;  // Tracking if the timer is running or not
+
+// Function for controlling View based on Model
+var controllerModelListener = function OnModelChanged(){
+    
+    // Controlling circle
+    if(breatheIn){
+        circleEnlarge(breathingInterval);
+    } 
+    else {
+        circleShrink(breathingInterval);
+    }
+
+    textInCircle.innerHTML = counter;
+}
+
+// Connecting to Model
+modelChangedEvent.push(controllerModelListener);    // Subscribe to model changed event
+
 
 function StartBtnClicked(){
     // Stop
@@ -30,11 +52,4 @@ function SkipClicked(){
     skip = true;
 }
 
-var controllerModelListener = function OnModelChanged(){
-    console.log("Controller detected tick");
-}
 
-startStopBtn.onclick = StartBtnClicked;
-circle_.onclick = SkipClicked;
-
-modelChangedEvent.push(controllerModelListener);
