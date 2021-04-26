@@ -10,12 +10,12 @@ var circle = document.getElementById('circle')
 
 
 function circleEnlarge(transitionTime) {
-  circle.style.transform = 'scale(2)';
+  circle.style.transform = 'scale(5)';
   circle.style.transition = 'all ' + transitionTime +'ms';  
 }
 
 
 function circleShrink(transitionTime) {
-  circle.style.transform = 'scale(1)';
-  circle.style.transition = 'all ' + transitionTime +'ms';    
+  circle.style.transform = 'scale(2)';
+  circle.style.transition = 'all ' + transitionTime +'ms';      
 }

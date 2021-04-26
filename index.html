@@ -9,29 +9,27 @@
     <div class="flex-container">
       <header class="flex-item-header">
         <li>
-          <label>Antall Pust</label><input type="number" step="1" min="1" max="30" value="30" placeholder="1 - 30" id="hyperventnumber"/>
-          <label>Runder</label><input type="number" step="1" min="1" max="5" value="3" placeholder="1 - 5" id="runder"/>
-          <label>Pustehastighet</label><input type="range" step="400" min="1200" max="2000" id="puste_hastighet"/>
-          <label>Holde pusten</label><input type="number" step="1" min="1" max="30" value="90" placeholder="1 - 30" id="holde_pusten"/>
+          <label>Innpust/Utpust </label><input type="number" step="1" min="1" max="30" value="30" placeholder="1 - 30" id="hyperventnumber"/>
+        </li>
+        <li>
+          <label>Runder </label><input type="number" step="1" min="1" max="5" value="3" placeholder="1 - 5" id="runder"/>
+        </li>
+        <li>
+          <label>Pustehastighet (Høy/Middels/Lav) </label><input type="range" step="400" min="1200" max="2000" id="puste_hastighet"/>
+        </li>
+        <li>
+          <label>Hold Pust (sekunder) </label><input type="number" step="1" min="1" max="30" value="90" placeholder="1 - 30" id="holde_pusten"/>
         </li>
         <li>
           <button id="startbtn">Start/Stop</button>
         </li>
       </header>
       <div class="flex-item-main-page">
-        <img id="circle" class="circleimage" src="./images/circle2.png" width="200px" height="200px" alt="">
-        <div class="imagetext" id="timerText">test</div>
+        <div id="circle" class="circleimage">
+          <div class="imagetext" id="timerText"></div>
+        </div>
       </div>
       <footer class="flex-item-footer">
-        <li>
-          Footer item 1 (Default setting 1?)
-        </li>
-        <li>
-          Footer item 2 (Default setting 2?)
-        </li>
-        <li>
-          Footer item 3 (Default setting 3?)
-        </li>
       </footer>
     <div>
     <script type="text/javascript" src="./scripts/view.js"></script>
