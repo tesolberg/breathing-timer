@@ -9,6 +9,7 @@ const phase = {
     POSTRECOVERYBREATH: "postRecoveryBreath",
 }
 
+
 /////////////////
 ////// API //////
 /////////////////
@@ -22,7 +23,7 @@ function StopTimer() {
     breatheIn = false;
 }
 
-// Settings
+// Settings (test settings below, overwritten by controller at start)
 var breathingInterval = 1600;   // Duration of one full breath cycle (ms)
 var breathHoldLength = 7;       // Duration of breath hold phase (s)
 var numberOfRounds = 3;         // Number of rounds (one round: hyperventilation, breath hold and recovery breath)
@@ -36,18 +37,16 @@ var roundCount = 0;                             // Current round
 var counter = 0;                                // Current breath/breath hold in seconds
 var breatheIn = false;                          // Breathe in = true, breathe out = false
 var currentPhase = phase.POSTRECOVERYBREATH;    // Current phase of current round
+var instruction = "";
 
 
 //////////////////
 //// INTERNAL ////
 //////////////////
 
-
-
 // Internal variables
 var skip = false;                           // Skips current phase if set to true
 var exit = false;                           // Halts execution if set to true
-
 
 // Function for running the delegate/event
 function ModelChanged() {
@@ -77,33 +76,30 @@ function ContinueRound() {
                 return;
             }
 
-            console.log("Round: " + roundCount + " begins...");
+            instruction = "Get ready for round " + roundCount;
             currentPhase = phase.PREHYPERVENTILATION
             ModelChanged();
             setTimeout(ContinueRound, 3000);
             break;
 
         case phase.PREHYPERVENTILATION:
-            console.log("Starting breathing");
             currentPhase = phase.HYPERVENTILATION
             counter = 0;
             HyperventilateInOrOut();
             break;
 
         case phase.HYPERVENTILATION:
-            console.log("Starting breath hold now");        // For debug
             currentPhase = phase.BREATHHOLD
             HoldBreath();
             break;
 
         case phase.BREATHHOLD:
-            console.log("Recovery breath.. breathe in..."); // For debug
             currentPhase = phase.RECOVERYBREATH
             RecoveryBreath();
             break;
         
         case phase.RECOVERYBREATH:
-            console.log("Good job. Get ready for the next round..."); // For debug
+            instruction = "Good job";
             currentPhase = phase.POSTRECOVERYBREATH
             ModelChanged();
             setTimeout(ContinueRound, 2000);
@@ -125,7 +121,7 @@ function RecoveryBreath() {
         counter++;
         breatheIn = true;
 
-        console.log(counter);
+        instruction = "";
 
         ModelChanged(); // Raise event
 
@@ -139,7 +135,7 @@ function HoldBreath() {
     // IF skip or max breaht hold count reached -> return control to round manager
     if (skip || exit || (counter >= breathHoldLength)) {
         skip = false;
-        counter = -1;
+        counter = 0;
         breatheIn = false;
 
         ContinueRound();
@@ -148,9 +144,16 @@ function HoldBreath() {
         // Increment breath hold count
         counter++;
 
-        ModelChanged();
+        // Set instructions
+        if (counter < 3){
+            instruction = "Hold your breath...";
+        }
+        else if (counter > breathHoldLength - 3){
+            instruction = "Recovery breath in " + String(breathHoldLength - counter + 1);
+        }
+        else instruction = "";
 
-        console.log(counter);
+        ModelChanged();
 
         // Wait 1 second and start function again
         setTimeout(HoldBreath, 1000);
@@ -174,10 +177,16 @@ function HyperventilateInOrOut() {
         // Increment breath count on every breath out
         if (breatheIn) counter++;
 
-        // For debugging
-        breatheIn ? console.log("Breathe in... (" + counter + ")") : console.log("Breathe out... (" + counter + ")")
+        // Setting instruction
+        if (counter < 3){
+            breatheIn ? instruction = "Breathe in..." : instruction = "Breathe out...";
+        }
+        else if (counter > numberOfBreaths - 1){
+            instruction = "Get ready for breath hold...";
+        }
+        else instruction = "";
 
-        // Wait for breathingInterval / 2 then continue hyperventilation
+        // Wait for breathingInterval then continue hyperventilation
         setTimeout(HyperventilateInOrOut, breathingInterval);
 
         // Raise event
