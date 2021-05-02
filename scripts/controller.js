@@ -24,6 +24,9 @@ var controllerModelListener = function OnModelChanged() {
     else {
         textInCircle.innerHTML = counter;
     }
+
+    // Displaying instructions
+    console.log(instruction);
 }
 
 // Connecting to Model
@@ -45,10 +48,10 @@ function StartBtnClicked() {
         startStopBtn.innerHTML = "Stop";
 
         // Update values from user input
-        breathingInterval = document.getElementById("puste_hastighet").value;
-        breathHoldLength = document.getElementById("holde_pusten").value;
-        numberOfRounds = document.getElementById("runder").value;
-        numberOfBreaths = document.getElementById("hyperventnumber").value;
+        // breathingInterval = document.getElementById("puste_hastighet").value;
+        // breathHoldLength = document.getElementById("holde_pusten").value;
+        // numberOfRounds = document.getElementById("runder").value;
+        // numberOfBreaths = document.getElementById("hyperventnumber").value;
         StartTimer();
     }
 }
