@@ -62,6 +62,10 @@ function StartBtnClicked() {
 
         // Set breathing speed
         switch (breathingSpeedInput_.value){
+            case "0": {
+                breathingInterval = 1600;
+                break;
+            }
             case "1": {
                 breathingInterval = 1200;
                 break;
