@@ -22,7 +22,6 @@ function circleShrink(transitionTime) {
   circle.style.transition = 'all ' + transitionTime +'ms';      
 }
 
-
 function Increment () {
   numberOfBreathsInput_.value = Number(numberOfBreathsInput_.value) + 1;
 }

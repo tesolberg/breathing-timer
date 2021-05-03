@@ -54,10 +54,28 @@ function StartBtnClicked() {
         startStopBtn.innerHTML = "Stop";
 
         //Update values from user input
-        //breathingInterval = breathingSpeedInput.value;
-        //numberOfBreaths = numberOfBreathsInput_.value;
-        //breathHoldLength = breathHoldDurationInput_.value;
-        //numberOfRounds = numberOfRoundsInput_.value;
+        numberOfBreaths = numberOfBreathsInput_.value;
+        breathHoldLength = breathHoldDurationInput_.value;
+        numberOfRounds = numberOfRoundsInput_.value;
+
+        console.log(breathingSpeedInput_.value);
+
+        // Set breathing speed
+        switch (breathingSpeedInput_.value){
+            case "1": {
+                breathingInterval = 1200;
+                break;
+            }
+            case "2": {
+                breathingInterval = 1600;
+                break;
+            }
+            case "3": {
+                breathingInterval = 2000;
+                break;
+            }
+        }
+
         StartTimer();
     }
 }
