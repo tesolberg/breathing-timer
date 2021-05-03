@@ -22,6 +22,7 @@
 .btn-secondary {
   position: fixed;
   align-self: flex-start;
+  font-size: 2em;
   width: 30%;
   height: 10%;
   margin: 30px;
@@ -37,7 +38,7 @@ h3 {
   position: absolute;
   width: auto;
   height: auto;
-  font-size: 10vh;
+  font-size: 8vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -74,7 +75,8 @@ h4 {
   .btn-secondary {
     position: absolute;
     left: 0;
-    min-width: 2px;
+    font-size: 1em;
+    min-width: 60px;
     max-width: 60px;
     min-height: 35px;
     max-height: 40px;
