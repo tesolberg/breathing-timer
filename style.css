@@ -15,6 +15,19 @@ body {
   height: 100vh;
 }
 
+.sidebar {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 40vh;
+  min-width: 300px;
+  height: 100vh;
+  background-color: rgb(30, 30, 30);
+  position: fixed;
+  left: 0;
+}
+
 
 .flex-item-header {
   display: flex;
@@ -62,6 +75,9 @@ body {
 
 .circleimage {
   background: #006d77;
+  margin-top: 10em;
+  margin-bottom: 10em;
+  margin-left: 30em;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -70,8 +86,10 @@ body {
 }
 
 li {
+  flex: 1;
+  width: 90%;
   list-style: none;
-  font-size: 30px;
+  font-size: 2rem;
   background: #006d77;
   border: 1px solid black;
   box-shadow: 1px 2px 5px black;
