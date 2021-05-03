@@ -2,7 +2,7 @@
 .main-container {
   display: flex;
   width: auto;
-  height: 100vh;
+  height: 95vh;
   background-color: rgb(50, 50, 50);;
   justify-content: center;
   align-items: center;
@@ -11,11 +11,11 @@
 }
 
 .dot {
-  background: rgb(255, 115, 0);
+  background: rgb(189, 58, 35);
   border-radius: 50%;
-  width: 10vh;
-  height: 10vh;
-  transform: scale(2);
+  width: min(20vh, 20vw);
+  height: min(20vh, 20vw);
+  transform: scale(1);
   transition: all 1s;
 }
 
@@ -26,9 +26,7 @@
   height: 10%;
   bottom: 5%;
   margin: 30px;
-
 }
-
 
 h5 {
   display: flex;
