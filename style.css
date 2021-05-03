@@ -55,23 +55,23 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 h4 {
   color: aliceblue;
   position: absolute;
-  top: 10%
+  bottom: 15%
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 2068px) {
   .text-white {
     flex-direction: column;
     align-items: center;
   }
 }
 
-  @media screen and (max-height: 900px) {
+  @media only screen and (max-height: 900px) {
   .btn-secondary {
     position: absolute;
     left: 0;
