@@ -44,8 +44,8 @@ body {
 
 .flex-item-main-page {
   display: flex;
-  flex: 12;
-  position: relative;
+  flex: 10;
+  margin-left: 10em;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -87,6 +87,7 @@ body {
 
 li {
   flex: 1;
+  text-align: center;
   width: 90%;
   list-style: none;
   font-size: 2rem;
@@ -96,9 +97,4 @@ li {
   align-self: center;
   margin: 5px;
   padding: 5px
-}
-
-input::-webkit-outer-spin-button, ::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0px;
 }
