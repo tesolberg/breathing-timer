@@ -1,7 +1,13 @@
 // Connecting to View
-const startStopBtn = document.getElementById("startbtn");
+const startStopBtn = document.getElementById("startStopBtn");
 const circle_ = document.getElementById("circle");
-const textInCircle = document.getElementById("timerText");
+const textInCircle = document.getElementById("circleText");
+const breathingSpeedInput_ = document.getElementById("breathingSpeedInput");
+const numberOfBreathsInput_ = document.getElementById("numberOfBreathsInput");
+const breathHoldDurationInput_ = document.getElementById("breathHoldDurationInput");
+const numberOfRoundsInput_ = document.getElementById("numberOfRoundsInput");
+
+
 startStopBtn.onclick = StartBtnClicked;
 circle_.onclick = SkipClicked;
 
@@ -48,10 +54,10 @@ function StartBtnClicked() {
         startStopBtn.innerHTML = "Stop";
 
         //Update values from user input
-        breathingInterval = document.getElementById("puste_hastighet").value;
-        breathHoldLength = document.getElementById("holde_pusten").value;
-        numberOfRounds = document.getElementById("runder").value;
-        numberOfBreaths = document.getElementById("hyperventnumber").value;
+        //breathingInterval = breathingSpeedInput.value;
+        //numberOfBreaths = numberOfBreathsInput_.value;
+        //breathHoldLength = breathHoldDurationInput_.value;
+        //numberOfRounds = numberOfRoundsInput_.value;
         StartTimer();
     }
 }
