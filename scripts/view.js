@@ -1,6 +1,5 @@
 var circle = document.getElementById('circle')
 
-
 /////////
 ///API///
 /////////

@@ -11,13 +11,30 @@
     <div class="collapse" id="navbarToggleExternalContent">
       <div class="bg-dark p-4">
         <h5 class="text-white h4">
-          <button type="button" class="btn btn-secondary">#Breaths</button>
-          <button type="button" class="btn btn-secondary">#Rounds</button>
-          <button type="button" class="btn btn-secondary">#Speed</button>
-          <button type="button" class="btn btn-secondary">#Breathhold(s)</button>
-          <button type="button" class="btn btn-secondary">Start</button>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="button">+</button>
+            <button class="btn btn-outline-secondary" type="button">-</button>
+            <input type="number" class="form-control" placeholder="#Breaths" aria-label="Example text with two button addons">
+          </div>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="button">+</button>
+            <button class="btn btn-outline-secondary" type="button">-</button>
+            <input type="number" class="form-control" placeholder="#Rounds" aria-label="Example text with two button addons">
+          </div>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="button">+</button>
+            <button class="btn btn-outline-secondary" type="button">-</button>
+            <input type="number" class="form-control" placeholder="#HoldBreath (sec)" aria-label="Example text with two button addons">
+          </div>
+          <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+          style="width: 30vh;">
+          <option selected>Breathing Speed</option>
+          <option value="1">Fast</option>
+          <option value="2">Medium</option>
+          <option value="3">Slow</option>
+          </select>
         </h5>
-        <span class="text-muted">Toggleable via the navbar brand.</span>
+        <span class="text-muted">Infotext</span>
       </div>
     </div>
     <nav class="navbar navbar-dark bg-dark">
@@ -28,7 +45,9 @@
       </div>
     </nav>
     <div class="main-container">
+      <button type="button" class="btn btn-secondary">Start</button>
       <span class="dot"></span>
+      <h3>Timer Text</h3>
     </div>
 
 

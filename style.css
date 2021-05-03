@@ -6,10 +6,12 @@
   background-color: rgb(50, 50, 50);;
   justify-content: center;
   align-items: center;
+  position: relative;
+  text-align: center;
 }
 
 .dot {
-  background: rgb(200, 0, 0);
+  background: rgb(255, 115, 0);
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -17,4 +19,38 @@
   transition: all 1s;
 }
 
+.btn-secondary {
+  position: fixed;
+  align-self: flex-start;
+  left: 10px;
+  margin: 15px;
 
+}
+
+
+h5 {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+h3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text-white > * {
+  margin: 10px;
+  max-width: 20rem;
+  flex-wrap: nowrap;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
