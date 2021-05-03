@@ -32,6 +32,8 @@ var controllerModelListener = function OnModelChanged() {
         textInCircle.innerHTML = counter;
     }
 
+    UpdateCircleColor();
+
     // Displaying instructions
     instructionText_.innerHTML = instruction;
     console.log(instruction);
@@ -61,7 +63,7 @@ function StartBtnClicked() {
         //numberOfRounds = numberOfRoundsInput_.value;
 
         // Set breathing speed
-        switch (breathingSpeedInput_.value){
+        switch (breathingSpeedInput_.value) {
             case "0": {
                 breathingInterval = 1600;
                 break;
@@ -86,6 +88,27 @@ function StartBtnClicked() {
 
 function SkipClicked() {
     skip = true;
+}
+
+function UpdateCircleColor() {
+    switch (currentPhase) {
+        case "preHyperventilation":
+            setCircleColor("blue");
+            break;
+        case "hyperventilation":
+            setCircleColor("blue");
+            break;
+        case "breathHold":
+            setCircleColor("blue");
+            break;
+        case "recoveryBreath":
+            setCircleColor("blue");
+            break;
+        case "postRecoveryBreath":
+            setCircleColor("blue");
+            break;
+
+    }
 }
 
 
