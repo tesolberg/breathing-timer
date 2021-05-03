@@ -13,17 +13,19 @@
 .dot {
   background: rgb(255, 115, 0);
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 10vh;
+  height: 10vh;
   transform: scale(2);
   transition: all 1s;
 }
 
 .btn-secondary {
-  position: fixed;
+  position: absolute;
   align-self: flex-start;
-  left: 10px;
-  margin: 15px;
+  width: 20%;
+  height: 10%;
+  bottom: 5%;
+  margin: 30px;
 
 }
 
@@ -36,6 +38,9 @@ h5 {
 
 h3 {
   position: absolute;
+  width: 5vh;
+  height: 5vh;
+  font-size: 2vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -53,4 +58,10 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-appearance: none;
     appearance: none;
     margin: 0; 
+}
+
+h4 {
+  color: aliceblue;
+  position: absolute;
+  top: 10%
 }

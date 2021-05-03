@@ -12,19 +12,19 @@
       <div class="bg-dark p-4">
         <h5 class="text-white h4">
           <div class="input-group mb-3">
-            <button class="btn btn-outline-secondary" type="button">+</button>
-            <button class="btn btn-outline-secondary" type="button">-</button>
-            <input type="number" class="form-control" placeholder="#Breaths" aria-label="Example text with two button addons">
+            <button class="btn btn-outline-secondary" type="button" id="incrementBreaths">+</button>
+            <button class="btn btn-outline-secondary" type="button" id="subtractBreaths">-</button>
+            <input type="number" class="form-control" id="numberOfBreathsInput" placeholder="#Breaths" aria-label="Example text with two button addons">
           </div>
           <div class="input-group mb-3">
             <button class="btn btn-outline-secondary" type="button">+</button>
             <button class="btn btn-outline-secondary" type="button">-</button>
-            <input type="number" class="form-control" placeholder="#Rounds" aria-label="Example text with two button addons">
+            <input type="number" class="form-control" id="numberOfRoundsInput" placeholder="#Rounds" aria-label="Example text with two button addons">
           </div>
           <div class="input-group mb-3">
             <button class="btn btn-outline-secondary" type="button">+</button>
             <button class="btn btn-outline-secondary" type="button">-</button>
-            <input type="number" class="form-control" placeholder="#HoldBreath (sec)" aria-label="Example text with two button addons">
+            <input type="number" class="form-control" id="breathHoldDurationInput" placeholder="#HoldBreath (sec)" aria-label="Example text with two button addons">
           </div>
           <select class="form-select form-select-sm" aria-label=".form-select-sm example"
           style="width: 30vh;">
@@ -34,7 +34,6 @@
           <option value="3">Slow</option>
           </select>
         </h5>
-        <span class="text-muted">Infotext</span>
       </div>
     </div>
     <nav class="navbar navbar-dark bg-dark">
@@ -44,10 +43,13 @@
         </button>
       </div>
     </nav>
+
+
     <div class="main-container">
-      <button type="button" class="btn btn-secondary">Start</button>
-      <span class="dot"></span>
-      <h3>Timer Text</h3>
+      <h4 class="infotext" id="instructionText"></h4>
+      <button type="button" class="btn btn-secondary" id="startStopBtn">Start</button>
+      <span class="dot" id="circle"></span>
+      <h3 id="circleText"></h3>
     </div>
 
 
