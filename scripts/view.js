@@ -9,7 +9,25 @@ var subtractBreathsBtn = document.getElementById('subtractBreaths')
 
 //input id's: hyperventnumber, runder, puste_hastighet, holde_pusten, startbtn, timerText
 
-
+function setCircleColor(color) {
+  switch(color) {
+    case "blue":
+      circle.style.background = "rgb(46, 65, 114)";
+      break;
+    
+    case "orange":
+      circle.style.background = "rgb(242, 102, 46)";
+      break;
+  
+    case "green":
+      circle.style.background = "rgb(93, 135, 60)";
+      break;
+    
+    case "purple":
+      circle.style.background = "rgb(90, 56, 123)";
+      break;
+  }
+}
 
 function circleEnlarge(transitionTime) {
   circle.style.transform = 'scale(3)';
