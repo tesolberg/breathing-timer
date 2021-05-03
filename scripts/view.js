@@ -7,8 +7,6 @@ var subtractBreathsBtn = document.getElementById('subtractBreaths')
 ///API///
 /////////
 
-//input id's: hyperventnumber, runder, puste_hastighet, holde_pusten, startbtn, timerText
-
 function setCircleColor(color) {
   switch(color) {
     case "blue":

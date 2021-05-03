@@ -96,18 +96,17 @@ function UpdateCircleColor() {
             setCircleColor("blue");
             break;
         case "hyperventilation":
-            setCircleColor("blue");
+            setCircleColor("orange");
             break;
         case "breathHold":
-            setCircleColor("blue");
+            setCircleColor("purple");
             break;
         case "recoveryBreath":
-            setCircleColor("blue");
+            setCircleColor("green");
             break;
         case "postRecoveryBreath":
             setCircleColor("blue");
             break;
-
     }
 }
 
