@@ -24,11 +24,11 @@ function circleShrink(transitionTime) {
 
 
 function Increment () {
-  numberOfBreathsInput_.value = Number(numberOfBreathsInput_.value) + 1;
+  numberOfBreathsInput.value = Number(numberOfBreathsInput.value) + 1;
 }
 
 function Subtract () {
-  numberOfBreathsInput_.value = Number(numberOfBreathsInput_.value) - 1;
+  numberOfBreathsInput.value = Number(numberOfBreathsInput.value) - 1;
 }
 
 incrementBreathsBtn.addEventListener('click', Increment);
