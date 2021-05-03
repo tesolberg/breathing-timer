@@ -1,5 +1,7 @@
 var circle = document.getElementById('circle')
-
+var numberOfBreathsInput = document.getElementById('numberOfBreathsInput')
+var incrementBreathsBtn = document.getElementById('incrementBreaths')
+var subtractBreathsBtn = document.getElementById('subtractBreaths')
 
 /////////
 ///API///
@@ -10,12 +12,24 @@ var circle = document.getElementById('circle')
 
 
 function circleEnlarge(transitionTime) {
-  circle.style.transform = 'scale(5)';
+  circle.style.transform = 'scale(3)';
   circle.style.transition = 'all ' + transitionTime +'ms';  
 }
 
 
 function circleShrink(transitionTime) {
-  circle.style.transform = 'scale(2)';
+  circle.style.transform = 'scale(1)';
   circle.style.transition = 'all ' + transitionTime +'ms';      
 }
+
+
+function Increment () {
+  numberOfBreathsInput_.value = Number(numberOfBreathsInput_.value) + 1;
+}
+
+function Subtract () {
+  numberOfBreathsInput_.value = Number(numberOfBreathsInput_.value) - 1;
+}
+
+incrementBreathsBtn.addEventListener('click', Increment);
+subtractBreathsBtn.addEventListener('click', Subtract);
