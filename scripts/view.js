@@ -57,7 +57,7 @@ function incrementBreaths () {
 }
 
 function subtractBreaths () {
-  numberOfBreathsInput.value = Number(numberOfBreathsInput.value) - 1;
+  numberOfBreathsInput.value = Math.max(Number(numberOfBreathsInput.value) - 1, 1);
 }
 
 incrementBreathsBtn.addEventListener('click', incrementBreaths);
@@ -71,7 +71,7 @@ function incrementRounds () {
 }
 
 function subtractRounds () {
-  numberOfRoundsInput.value = Number(numberOfRoundsInput.value) - 1;
+  numberOfRoundsInput.value = Math.max(Number(numberOfRoundsInput.value) - 1, 1);
 }
 
 incrementRoundsBtn.addEventListener('click', incrementRounds);
@@ -85,7 +85,7 @@ function incrementHoldBreath () {
 }
 
 function subtractHoldBreath () {
-  breathHoldDurationInput.value = Number(breathHoldDurationInput.value) - 1;
+  breathHoldDurationInput.value = Math.max(Number(breathHoldDurationInput.value) - 1, 1);
 }
 
 incrementHoldBtn.addEventListener('click', incrementHoldBreath);

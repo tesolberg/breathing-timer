@@ -8,7 +8,6 @@ const numberOfBreathsInput_ = document.getElementById("numberOfBreathsInput");
 const breathHoldDurationInput_ = document.getElementById("breathHoldDurationInput");
 const numberOfRoundsInput_ = document.getElementById("numberOfRoundsInput");
 
-
 startStopBtn.onclick = StartBtnClicked;
 circle_.onclick = SkipClicked;
 
@@ -36,7 +35,6 @@ var controllerModelListener = function OnModelChanged() {
 
     // Displaying instructions
     instructionText_.innerHTML = instruction;
-    console.log(instruction);
 }
 
 // Connecting to Model
@@ -58,9 +56,9 @@ function StartBtnClicked() {
         startStopBtn.innerHTML = "Stop";
 
         //Update values from user input
-        //numberOfBreaths = numberOfBreathsInput_.value;
-        //breathHoldLength = breathHoldDurationInput_.value;
-        //numberOfRounds = numberOfRoundsInput_.value;
+        numberOfBreaths = numberOfBreathsInput_.value;
+        breathHoldLength = breathHoldDurationInput_.value;
+        numberOfRounds = numberOfRoundsInput_.value;
 
         // Set breathing speed
         switch (breathingSpeedInput_.value) {
