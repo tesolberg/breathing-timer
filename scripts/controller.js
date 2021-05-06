@@ -12,6 +12,7 @@ startStopBtn.onclick = StartBtnClicked;
 circle_.onclick = SkipClicked;
 
 var moduleRunning = false;  // Tracking if the timer is running or not
+var testMode = false;
 
 // Function for controlling View based on Model
 var controllerModelListener = function OnModelChanged() {
@@ -80,6 +81,13 @@ function StartBtnClicked() {
             }
         }
 
+        if (testMode) {
+            numberOfBreaths = 5;
+            breathHoldLength = 7;
+            numberOfRounds = 5;
+            breathingInterval = 1200;
+        }
+
         StartTimer();
     }
 }
@@ -108,4 +116,8 @@ function UpdateCircleColor() {
     }
 }
 
+function Test(){
+    testMode = true;
+    StartBtnClicked();
+}
 
