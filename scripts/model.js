@@ -99,17 +99,17 @@ function ContinueRound() {
             break;
         
         case phase.RECOVERYBREATH:
-            instruction = "Good job";
+            instruction = "Breathe out...";
             currentPhase = phase.POSTRECOVERYBREATH
             ModelChanged();
-            setTimeout(ContinueRound, 2000);
+            setTimeout(ContinueRound, 4000);
             break;
     }
 }
 
 function RecoveryBreath() {
     // IF skip or recovery breath duration reached -> return control to round manager
-    if (skip || exit || (counter >= 15)) {
+    if (exit || (counter >= 15)) {
         skip = false;
         counter = 0;
         breatheIn = false;
@@ -121,7 +121,7 @@ function RecoveryBreath() {
         counter++;
         breatheIn = true;
 
-        instruction = "";
+        instruction = "Breathe in... hold breath for 15 seconds";
 
         ModelChanged(); // Raise event
 
@@ -145,13 +145,10 @@ function HoldBreath() {
         counter++;
 
         // Set instructions
-        if (counter < 3){
-            instruction = "Hold your breath...";
-        }
-        else if (counter > breathHoldLength - 3){
+        if (counter > breathHoldLength - 3){
             instruction = "Recovery breath in " + String(breathHoldLength - counter + 1);
         }
-        else instruction = "";
+        else instruction = "Hold your breath... (to end early, click circle)";
 
         ModelChanged();
 
@@ -163,7 +160,7 @@ function HoldBreath() {
 
 function HyperventilateInOrOut() {
     // IF skip or max breaht count reached and finished with out breath -> return control to round manager
-    if (skip || exit || (counter >= numberOfBreaths && !breatheIn)) {
+    if (exit || (counter >= numberOfBreaths && !breatheIn)) {
         skip = false;
         counter = -1;
         breatheIn = false;
@@ -178,13 +175,10 @@ function HyperventilateInOrOut() {
         if (breatheIn) counter++;
 
         // Setting instruction
-        if (counter < 3){
-            breatheIn ? instruction = "Breathe in..." : instruction = "Breathe out...";
-        }
-        else if (counter > numberOfBreaths - 1){
+        if (counter > numberOfBreaths - 1){
             instruction = "Get ready for breath hold...";
         }
-        else instruction = "";
+        else breatheIn ? instruction = "Breathe in..." : instruction = "Breathe out...";
 
         // Wait for breathingInterval then continue hyperventilation
         setTimeout(HyperventilateInOrOut, breathingInterval);
