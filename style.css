@@ -20,7 +20,7 @@
 }
 
 .btn-secondary {
-  position: fixed;
+  position: absolute;
   align-self: flex-start;
   font-size: 2em;
   width: 30%;
