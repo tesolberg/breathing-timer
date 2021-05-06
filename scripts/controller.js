@@ -2,11 +2,11 @@
 const startStopBtn = document.getElementById("startStopBtn");
 const circle_ = document.getElementById("circle");
 const textInCircle = document.getElementById("circleText");
+const instructionText_ = document.getElementById("instructionText");
 const breathingSpeedInput_ = document.getElementById("breathingSpeedInput");
 const numberOfBreathsInput_ = document.getElementById("numberOfBreathsInput");
 const breathHoldDurationInput_ = document.getElementById("breathHoldDurationInput");
 const numberOfRoundsInput_ = document.getElementById("numberOfRoundsInput");
-
 
 startStopBtn.onclick = StartBtnClicked;
 circle_.onclick = SkipClicked;
@@ -31,8 +31,10 @@ var controllerModelListener = function OnModelChanged() {
         textInCircle.innerHTML = counter;
     }
 
+    UpdateCircleColor();
+
     // Displaying instructions
-    console.log(instruction);
+    instructionText_.innerHTML = instruction;
 }
 
 // Connecting to Model
@@ -54,16 +56,56 @@ function StartBtnClicked() {
         startStopBtn.innerHTML = "Stop";
 
         //Update values from user input
-        //breathingInterval = breathingSpeedInput.value;
-        //numberOfBreaths = numberOfBreathsInput_.value;
-        //breathHoldLength = breathHoldDurationInput_.value;
-        //numberOfRounds = numberOfRoundsInput_.value;
+        numberOfBreaths = numberOfBreathsInput_.value;
+        breathHoldLength = breathHoldDurationInput_.value;
+        numberOfRounds = numberOfRoundsInput_.value;
+
+        // Set breathing speed
+        switch (breathingSpeedInput_.value) {
+            case "0": {
+                breathingInterval = 1600;
+                break;
+            }
+            case "1": {
+                breathingInterval = 1200;
+                break;
+            }
+            case "2": {
+                breathingInterval = 1600;
+                break;
+            }
+            case "3": {
+                breathingInterval = 2000;
+                break;
+            }
+        }
+
         StartTimer();
     }
 }
 
 function SkipClicked() {
     skip = true;
+}
+
+function UpdateCircleColor() {
+    switch (currentPhase) {
+        case "preHyperventilation":
+            setCircleColor("blue");
+            break;
+        case "hyperventilation":
+            setCircleColor("orange");
+            break;
+        case "breathHold":
+            setCircleColor("purple");
+            break;
+        case "recoveryBreath":
+            setCircleColor("green");
+            break;
+        case "postRecoveryBreath":
+            setCircleColor("blue");
+            break;
+    }
 }
 
 

@@ -135,7 +135,7 @@ function HoldBreath() {
     // IF skip or max breaht hold count reached -> return control to round manager
     if (skip || exit || (counter >= breathHoldLength)) {
         skip = false;
-        counter = 0;
+        counter = -1;
         breatheIn = false;
 
         ContinueRound();
