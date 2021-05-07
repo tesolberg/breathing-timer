@@ -18,19 +18,20 @@ var subtractHoldBtn = document.getElementById('subtractHold')
 function setCircleColor(color) {
   switch(color) {
     case "blue":
-      circle.style.background = "rgb(46, 65, 114)";
+      circle.style.background = "rgb(65, 71, 112)";
       break;
+      
     
     case "orange":
       circle.style.background = "rgb(242, 102, 46)";
       break;
   
     case "green":
-      circle.style.background = "rgb(93, 135, 60)";
+      circle.style.background = "rgb(140, 209, 110)";
       break;
     
     case "purple":
-      circle.style.background = "rgb(90, 56, 123)";
+      circle.style.background = "rgb(66, 133, 140)";
       break;
   }
 }

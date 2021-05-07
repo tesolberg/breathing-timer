@@ -10,12 +10,13 @@ const numberOfRoundsInput_ = document.getElementById("numberOfRoundsInput");
 
 startStopBtn.onclick = StartBtnClicked;
 circle_.onclick = SkipClicked;
+textInCircle.onclick = SkipClicked;
 
 var moduleRunning = false;  // Tracking if the timer is running or not
 var testMode = false;
 
 // Function for controlling View based on Model
-var controllerModelListener = function OnModelChanged() {
+var controllerModelListener = function () {
 
     // Controlling circle
     if (breatheIn) {
@@ -33,6 +34,17 @@ var controllerModelListener = function OnModelChanged() {
     }
 
     UpdateCircleColor();
+
+    // Update cursor
+    if (currentPhase === phase.BREATHHOLD) {
+        circle_.style.cursor = "pointer";
+        textInCircle.style.cursor = "pointer";
+    }
+    else {
+        circle_.style.cursor = "default";
+        textInCircle.style.cursor = "default";
+    }
+
 
     // Displaying instructions
     instructionText_.innerHTML = instruction;
@@ -82,8 +94,8 @@ function StartBtnClicked() {
         }
 
         if (testMode) {
-            numberOfBreaths = 5;
-            breathHoldLength = 7;
+            numberOfBreaths = 3;
+            breathHoldLength = 5;
             numberOfRounds = 5;
             breathingInterval = 1200;
         }
@@ -93,7 +105,9 @@ function StartBtnClicked() {
 }
 
 function SkipClicked() {
-    skip = true;
+    if (currentPhase === phase.BREATHHOLD) {
+        skip = true;
+    }
 }
 
 function UpdateCircleColor() {
@@ -116,7 +130,7 @@ function UpdateCircleColor() {
     }
 }
 
-function Test(){
+function Test() {
     testMode = true;
     StartBtnClicked();
 }
