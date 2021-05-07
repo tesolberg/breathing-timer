@@ -61,6 +61,7 @@ function ContinueRound() {
         // Cleanup
         exit = false;
         currentPhase = phase.POSTRECOVERYBREATH;
+        instruction = "Breathing exercise finished";
 
         ModelChanged();
         return;
