@@ -2,16 +2,17 @@
 const startStopBtn = document.getElementById("startStopBtn");
 const circle_ = document.getElementById("circle");
 const textInCircle = document.getElementById("circleText");
-
-const breathingSpeedInput = document.getElementById("breathingSpeedInput");
-const numberOfBreathsInput = document.getElementById("numberOfBreathsInput");
-const breathHoldDurationInput = document.getElementById("breathHoldDurationInput");
-const numberOfRoundsInput = document.getElementById("numberOfRoundsInput");
+const instructionText_ = document.getElementById("instructionText");
+const breathingSpeedInput_ = document.getElementById("breathingSpeedInput");
+const numberOfBreathsInput_ = document.getElementById("numberOfBreathsInput");
+const breathHoldDurationInput_ = document.getElementById("breathHoldDurationInput");
+const numberOfRoundsInput_ = document.getElementById("numberOfRoundsInput");
 
 startStopBtn.onclick = StartBtnClicked;
 circle_.onclick = SkipClicked;
 
 var moduleRunning = false;  // Tracking if the timer is running or not
+var testMode = false;
 
 // Function for controlling View based on Model
 var controllerModelListener = function OnModelChanged() {
@@ -31,8 +32,10 @@ var controllerModelListener = function OnModelChanged() {
         textInCircle.innerHTML = counter;
     }
 
+    UpdateCircleColor();
+
     // Displaying instructions
-    console.log(instruction);
+    instructionText_.innerHTML = instruction;
 }
 
 // Connecting to Model
@@ -54,10 +57,37 @@ function StartBtnClicked() {
         startStopBtn.innerHTML = "Stop";
 
         //Update values from user input
-        breathingInterval = breathingSpeedInput.value;
-        numberOfBreaths = numberOfRoundsInput.value;
-        breathHoldLength = breathHoldDurationInput.value;
-        numberOfRounds = numberOfRoundsInput.value;
+        numberOfBreaths = numberOfBreathsInput_.value;
+        breathHoldLength = breathHoldDurationInput_.value;
+        numberOfRounds = numberOfRoundsInput_.value;
+
+        // Set breathing speed
+        switch (breathingSpeedInput_.value) {
+            case "0": {
+                breathingInterval = 1600;
+                break;
+            }
+            case "1": {
+                breathingInterval = 1200;
+                break;
+            }
+            case "2": {
+                breathingInterval = 1600;
+                break;
+            }
+            case "3": {
+                breathingInterval = 2000;
+                break;
+            }
+        }
+
+        if (testMode) {
+            numberOfBreaths = 5;
+            breathHoldLength = 7;
+            numberOfRounds = 5;
+            breathingInterval = 1200;
+        }
+
         StartTimer();
     }
 }
@@ -66,4 +96,28 @@ function SkipClicked() {
     skip = true;
 }
 
+function UpdateCircleColor() {
+    switch (currentPhase) {
+        case "preHyperventilation":
+            setCircleColor("blue");
+            break;
+        case "hyperventilation":
+            setCircleColor("orange");
+            break;
+        case "breathHold":
+            setCircleColor("purple");
+            break;
+        case "recoveryBreath":
+            setCircleColor("green");
+            break;
+        case "postRecoveryBreath":
+            setCircleColor("blue");
+            break;
+    }
+}
+
+function Test(){
+    testMode = true;
+    StartBtnClicked();
+}
 
