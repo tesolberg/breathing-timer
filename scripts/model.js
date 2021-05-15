@@ -73,7 +73,8 @@ function ContinueRound() {
             roundCount++;
 
             if (roundCount > numberOfRounds) {
-                ModelChanged();
+                exit = true;
+                ContinueRound();
                 return;
             }
 
@@ -110,7 +111,7 @@ function ContinueRound() {
 
 function RecoveryBreath() {
     // IF skip or recovery breath duration reached -> return control to round manager
-    if (exit || (counter >= 15)) {
+    if (skip || exit || (counter >= 15)) {
         skip = false;
         counter = 0;
         breatheIn = false;
@@ -161,7 +162,7 @@ function HoldBreath() {
 
 function HyperventilateInOrOut() {
     // IF skip or max breaht count reached and finished with out breath -> return control to round manager
-    if (exit || (counter >= numberOfBreaths && !breatheIn)) {
+    if (skip || exit || (counter >= numberOfBreaths && !breatheIn)) {
         skip = false;
         counter = -1;
         breatheIn = false;
