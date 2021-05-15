@@ -36,7 +36,7 @@ var controllerModelListener = function () {
     UpdateCircleColor();
 
     // Update cursor
-    if (currentPhase === phase.BREATHHOLD) {
+    if (SkipEnabled()) {
         circle_.style.cursor = "pointer";
         textInCircle.style.cursor = "pointer";
     }
@@ -104,8 +104,14 @@ function StartBtnClicked() {
     }
 }
 
+function SkipEnabled() {
+    return currentPhase === phase.HYPERVENTILATION ||
+        currentPhase === phase.BREATHHOLD ||
+        currentPhase === phase.RECOVERYBREATH;
+}
+
 function SkipClicked() {
-    if (currentPhase === phase.BREATHHOLD) {
+    if (SkipEnabled()) {
         skip = true;
     }
 }
