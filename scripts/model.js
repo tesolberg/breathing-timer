@@ -78,10 +78,10 @@ function ContinueRound() {
                 return;
             }
 
-            instruction = "Get ready for round " + roundCount;
+            instruction = "Get ready for round " + roundCount + " (skip any phase by clicking the circle)";
             currentPhase = phase.PREHYPERVENTILATION
             ModelChanged();
-            setTimeout(ContinueRound, 3000);
+            setTimeout(ContinueRound, 5000);
             break;
 
         case phase.PREHYPERVENTILATION:
@@ -104,7 +104,7 @@ function ContinueRound() {
             instruction = "Breathe out...";
             currentPhase = phase.POSTRECOVERYBREATH
             ModelChanged();
-            setTimeout(ContinueRound, 4000);
+            setTimeout(ContinueRound, 3000);
             break;
     }
 }
@@ -150,7 +150,7 @@ function HoldBreath() {
         if (counter > breathHoldLength - 3){
             instruction = "Recovery breath in " + String(breathHoldLength - counter + 1);
         }
-        else instruction = "Hold your breath... (to end early, click circle)";
+        else instruction = "Hold your breath...";
 
         ModelChanged();
 
