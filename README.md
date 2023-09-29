@@ -1,4 +1,4 @@
 # breathing-timer
-A timer for breathing exercises
+A timer for Wim Hof-style breathing exercises.
 
-Link to github pages: https://tesolberg.github.io/breathing-timer/
+Try it out at: https://tesolberg.github.io/breathing-timer/
