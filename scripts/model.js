@@ -14,13 +14,28 @@ const phase = {
 ////// API //////
 /////////////////
 
-function StartTimer() { ContinueRound(); }
+function StartTimer() {
+    // Cancel any stale callback left over from a previous run before starting fresh
+    CancelScheduledTick();
+    ContinueRound();
+}
 
 function StopTimer() {
-    exit = true;
+    // Cancel any pending tick first, then run cleanup synchronously ourselves.
+    // (The old code just set exit=true and relied on the currently-pending
+    // callback to notice it and clean up later. Now that we cancel that
+    // callback, nothing else would ever run the cleanup.)
+    CancelScheduledTick();
+
     roundCount = 0;
-    currentPhase = phase.RECOVERYBREATH;
+    counter = 0;
+    skip = false;
+    exit = false;
     breatheIn = false;
+    currentPhase = phase.POSTRECOVERYBREATH;
+    instruction = "Breathing exercise finished";
+
+    ModelChanged();
 }
 
 // Settings (test settings below, overwritten by controller at start)
@@ -47,12 +62,34 @@ var instruction = "";
 // Internal variables
 var skip = false;                           // Skips current phase if set to true
 var exit = false;                           // Halts execution if set to true
+var activeTimer = null;                     // id of the currently pending setTimeout, so stale callbacks can be cancelled
+var phaseStartTime = 0;                     // performance.now() at the start of the current ticking phase, used to schedule ticks without drift
+var hyperventStep = 0;                      // half-breath tick counter within the hyperventilation phase (counter only advances on breathe-in)
 
 // Function for running the delegate/event
 function ModelChanged() {
     modelChangedEvent.forEach(element => {
         element();
     });
+}
+
+// Schedules fn to run once, tracking the timer id so it can be cancelled if the round is stopped/restarted
+function ScheduleTick(fn, delay) {
+    activeTimer = setTimeout(fn, delay);
+}
+
+// Cancels any pending tick so a stopped/superseded round can't fire into a new one
+function CancelScheduledTick() {
+    if (activeTimer !== null) {
+        clearTimeout(activeTimer);
+        activeTimer = null;
+    }
+}
+
+// Returns the delay (ms, never negative) until the given tick number of a phase that started at phaseStartTime,
+// so repeated ticks stay aligned to real elapsed time instead of drifting from setTimeout scheduling overhead.
+function DelayUntilTick(tickNumber, intervalMs) {
+    return Math.max(0, (phaseStartTime + tickNumber * intervalMs) - performance.now());
 }
 
 // Primary loop
@@ -81,22 +118,26 @@ function ContinueRound() {
             instruction = "Get ready for round " + roundCount + " (skip any phase by clicking the circle)";
             currentPhase = phase.PREHYPERVENTILATION
             ModelChanged();
-            setTimeout(ContinueRound, 5000);
+            ScheduleTick(ContinueRound, 5000);
             break;
 
         case phase.PREHYPERVENTILATION:
             currentPhase = phase.HYPERVENTILATION
             counter = 0;
+            hyperventStep = 0;
+            phaseStartTime = performance.now();
             HyperventilateInOrOut();
             break;
 
         case phase.HYPERVENTILATION:
             currentPhase = phase.BREATHHOLD
+            phaseStartTime = performance.now();
             HoldBreath();
             break;
 
         case phase.BREATHHOLD:
             currentPhase = phase.RECOVERYBREATH
+            phaseStartTime = performance.now();
             RecoveryBreath();
             break;
         
@@ -104,7 +145,7 @@ function ContinueRound() {
             instruction = "Breathe out...";
             currentPhase = phase.POSTRECOVERYBREATH
             ModelChanged();
-            setTimeout(ContinueRound, 3000);
+            ScheduleTick(ContinueRound, 3000);
             break;
     }
 }
@@ -127,8 +168,10 @@ function RecoveryBreath() {
 
         ModelChanged(); // Raise event
 
-        // Wait 1 second and start function again
-        setTimeout(RecoveryBreath, 1000);
+        // Schedule next tick against the phase start time so ticks don't drift.
+        // counter starts at -1 (carried over from the previous phase), so the next
+        // invocation's tick index is counter + 1, not counter.
+        ScheduleTick(RecoveryBreath, DelayUntilTick(counter + 1, 1000));
     }
 }
 
@@ -154,8 +197,10 @@ function HoldBreath() {
 
         ModelChanged();
 
-        // Wait 1 second and start function again
-        setTimeout(HoldBreath, 1000);
+        // Schedule next tick against the phase start time so ticks don't drift.
+        // counter starts at -1 (carried over from the previous phase), so the next
+        // invocation's tick index is counter + 1, not counter.
+        ScheduleTick(HoldBreath, DelayUntilTick(counter + 1, 1000));
     }
 }
 
@@ -170,6 +215,8 @@ function HyperventilateInOrOut() {
         ContinueRound();
     }
     else {
+        hyperventStep++;
+
         // Flip bool
         breatheIn = !breatheIn;
 
@@ -182,8 +229,8 @@ function HyperventilateInOrOut() {
         }
         else breatheIn ? instruction = "Breathe in..." : instruction = "Breathe out...";
 
-        // Wait for breathingInterval then continue hyperventilation
-        setTimeout(HyperventilateInOrOut, breathingInterval);
+        // Schedule next tick against the phase start time so ticks don't drift
+        ScheduleTick(HyperventilateInOrOut, DelayUntilTick(hyperventStep, breathingInterval));
 
         // Raise event
         ModelChanged();

@@ -1,84 +1,217 @@
+:root {
+  --air-deep: #16213f;
+  --air-mid: #2c3f6e;
+  --air-light: #6f8fc9;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-strong: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --text-air: #eef2fb;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  font-family: 'Quicksand', system-ui, sans-serif;
+  color: var(--text-air);
+  background: linear-gradient(160deg, var(--air-deep) 0%, var(--air-mid) 55%, var(--air-light) 100%);
+}
+
+/* Soft drifting cloud-glows -- pure atmosphere, no interaction. Fixed + z-index so they
+   sit outside the flex flow and never affect layout. */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+body::before {
+  width: 60vmax;
+  height: 60vmax;
+  top: -20vmax;
+  left: -15vmax;
+  background: radial-gradient(circle, #ffffff 0%, transparent 70%);
+}
+
+body::after {
+  width: 50vmax;
+  height: 50vmax;
+  bottom: -20vmax;
+  right: -15vmax;
+  background: radial-gradient(circle, #cfe0ff 0%, transparent 70%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body::before {
+    animation: drift-a 50s ease-in-out infinite alternate;
+  }
+  body::after {
+    animation: drift-b 60s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes drift-a {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(6vmax, 8vmax) scale(1.15); }
+}
+
+@keyframes drift-b {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-8vmax, -6vmax) scale(1.1); }
+}
+
+.navbar {
+  background: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-toggler {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.2);
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.settings-panel .input-group,
+.settings-panel .form-select {
+  max-width: 22rem;
+}
+
+.input-group-text {
+  background: transparent;
+  border: none;
+  color: var(--text-air);
+  font-weight: 600;
+  min-width: 9rem;
+  justify-content: flex-start;
+  padding-left: 0;
+}
 
 .main-container {
   display: flex;
+  flex: 1 1 auto;
+  /* Flex items default to min-height:auto, which refuses to shrink below the
+     content's natural size. Without this, expanding the settings panel doesn't
+     actually shrink this container to make room -- it just overflows, and the
+     circle (sized off raw vh/vw below) paints over the panel instead. */
+  min-height: 0;
   width: auto;
-  height: 95vh;
-  background-color: rgb(50, 50, 50);;
   justify-content: center;
   align-items: center;
   position: relative;
   text-align: center;
+  padding: 3rem 1rem;
+  box-sizing: border-box;
+  /* Lets .dot/h3 below size themselves as a percentage of the space actually
+     available here (via cq* units), instead of the raw viewport, so they can
+     never exceed however much room the settings panel has left. */
+  container-type: size;
+  /* Safety net: if a phase's instruction text is long enough to still not fit
+     a very short/narrow container, clip rather than spill into the panel above. */
+  overflow: hidden;
 }
 
 .dot {
-  background: rgb(189, 58, 35);
+  /* Idle fallback, before any phase colour has been set via JS. */
+  --phase-color: hsl(221, 55%, 62%);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.45), transparent 55%),
+    var(--phase-color);
   border-radius: 50%;
-  width: min(20vh, 20vw);
-  height: min(20vh, 20vw);
+  width: 20cqmin;
+  height: 20cqmin;
+  min-width: 40px;
+  min-height: 40px;
   transform: scale(1);
-  transition: all 1s;
+  transition: all 1s ease-in-out;
+  box-shadow: 0 0 8cqmin 1cqmin rgba(255, 255, 255, 0.2);
 }
 
 .btn-secondary {
   position: absolute;
-  align-self: flex-start;
-  font-size: 2em;
-  width: 30%;
-  height: 10%;
-  margin: 30px;
+  top: 0;
+  left: 0;
+  font-size: clamp(1rem, 4cqmin, 2rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.5em 1.5em;
+  margin: 1.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  color: var(--text-air);
 }
 
-h5 {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
+.btn-secondary:hover {
+  background: var(--glass-bg-strong);
+  color: var(--text-air);
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
 }
 
 h3 {
   position: absolute;
   width: auto;
   height: auto;
-  font-size: 8vh;
+  font-size: 8cqmin;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.text-white > * {
-  margin: 10px;
-  max-width: 20rem;
-  flex-wrap: nowrap;
+h4 {
+  color: var(--text-air);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90%, 40rem);
+  margin: 0;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     margin: 0;
-}
-
-h4 {
-  color: aliceblue;
-  position: absolute;
-  bottom: 10%
-}
-
-@media screen and (max-width: 2068px) {
-  .text-white {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-  @media only screen and (max-height: 900px) {
-  .btn-secondary {
-    position: absolute;
-    left: 0;
-    font-size: 1em;
-    min-width: 60px;
-    max-width: 60px;
-    min-height: 35px;
-    max-height: 40px;
-  }
 }

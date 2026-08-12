@@ -1,0 +1,15 @@
+{
+  "name": "Breathing Timer",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Breathing Timer",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "postCreateCommand": "npm install",
+  "postAttachCommand": {
+    "server": "npm start"
+  }
+}

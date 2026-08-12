@@ -1,0 +1,12 @@
+{
+  "name": "breathing-timer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A timer for Wim Hof-style breathing exercises.",
+  "scripts": {
+    "start": "serve . -p 8080"
+  },
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
+}
