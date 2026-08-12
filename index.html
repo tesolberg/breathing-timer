@@ -1,46 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-bs-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Breathing Timer</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
   </head>
   <body>
     <div class="collapse" id="navbarToggleExternalContent">
-      <div class="bg-dark p-4">
-        <h5 class="text-white h4">
+      <div class="glass-panel p-4">
+        <div class="settings-panel">
           <div class="input-group mb-3">
-            <h5>#Breaths</h5>
+            <span class="input-group-text">#Breaths</span>
             <button class="btn btn-outline-secondary" type="button" id="subtractBreaths">-</button>
             <button class="btn btn-outline-secondary" type="button" id="incrementBreaths">+</button>
             <input type="number" class="form-control" id="numberOfBreathsInput" value=30 aria-label="Example text with two button addons">
           </div>
           <div class="input-group mb-3">
-            <h5>#Rounds</h5>
+            <span class="input-group-text">#Rounds</span>
             <button class="btn btn-outline-secondary" type="button" id="subtractRounds">-</button>
             <button class="btn btn-outline-secondary" type="button" id="incrementRounds">+</button>
             <input type="number" class="form-control" id="numberOfRoundsInput" value=3 aria-label="Example text with two button addons">
           </div>
           <div class="input-group mb-3">
-            <h5>Breath Hold (sec)</h5>
+            <span class="input-group-text">Breath Hold (sec)</span>
             <button class="btn btn-outline-secondary" type="button" id="subtractHold">-</button>
             <button class="btn btn-outline-secondary" type="button" id="incrementHold">+</button>
             <input type="number" class="form-control" id="breathHoldDurationInput" value=90 aria-label="Example text with two button addons">
           </div>
-          <select class="form-select form-select-sm" id="breathingSpeedInput" aria-label=".form-select-sm example"
-          style="width: 30vh;">
+          <select class="form-select form-select-sm" id="breathingSpeedInput" aria-label=".form-select-sm example">
           <option selected value="0">Breathing Speed</option>
           <option value="1">Fast</option>
           <option value="2">Medium</option>
           <option value="3">Slow</option>
           </select>
-        </h5>
+        </div>
       </div>
     </div>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -60,6 +62,6 @@
     <script type="text/javascript" src="./scripts/model.js"></script>
     <script type="text/javascript" src="./scripts/controller.js"></script>
     <script type="text/javascript" src="./scripts/test.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>

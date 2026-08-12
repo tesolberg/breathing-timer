@@ -15,24 +15,58 @@ var subtractHoldBtn = document.getElementById('subtractHold')
 ///API///
 /////////
 
+// Lazily created AudioContext. Browsers require a user gesture before audio can play,
+// so this is created/resumed from the Start button click handler in controller.js.
+var audioCtx = null;
+
+function ensureAudioContext() {
+  if (!audioCtx) {
+    var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return null;
+    audioCtx = new AudioContextClass();
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// Plays a short beep. Used as a non-visual cue for phase changes, since users
+// often have their eyes closed during breathing exercises.
+function playTone(frequencyHz, durationMs) {
+  var ctx = ensureAudioContext();
+  if (!ctx) return;
+
+  var oscillator = ctx.createOscillator();
+  var gain = ctx.createGain();
+  oscillator.frequency.value = frequencyHz;
+  oscillator.connect(gain);
+  gain.connect(ctx.destination);
+
+  var now = ctx.currentTime;
+  gain.gain.setValueAtTime(0.001, now);
+  gain.gain.exponentialRampToValueAtTime(0.2, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + durationMs / 1000);
+
+  oscillator.start(now);
+  oscillator.stop(now + durationMs / 1000);
+}
+
+function vibrate(pattern) {
+  if (navigator.vibrate) navigator.vibrate(pattern);
+}
+
+// Air-themed phase palette: each phase reads as a different quality of air.
+// Set as a custom property (rather than circle.style.background directly) so the
+// CSS can layer a soft highlight gradient on top of it -- see .dot in style.css.
+var PHASE_COLORS = {
+  blue: "hsl(221, 55%, 62%)",    // still air -- get ready
+  orange: "hsl(35, 90%, 60%)",   // moving air -- hyperventilation
+  purple: "hsl(265, 45%, 68%)",  // suspended air -- breath hold
+  green: "hsl(160, 50%, 55%)",   // fresh breeze -- recovery
+};
+
 function setCircleColor(color) {
-  switch(color) {
-    case "blue":
-      circle.style.background = "rgb(65, 71, 112)";
-      break;
-      
-    
-    case "orange":
-      circle.style.background = "rgb(242, 102, 46)";
-      break;
-  
-    case "green":
-      circle.style.background = "rgb(140, 209, 110)";
-      break;
-    
-    case "purple":
-      circle.style.background = "rgb(66, 133, 140)";
-      break;
+  if (PHASE_COLORS[color]) {
+    circle.style.setProperty('--phase-color', PHASE_COLORS[color]);
   }
 }
 

@@ -15,8 +15,46 @@ textInCircle.onclick = SkipClicked;
 var moduleRunning = false;  // Tracking if the timer is running or not
 var testMode = false;
 
+var lastCuedPhase = null;        // Last phase we already played a transition cue for
+var lastCuedInstruction = null;  // Last instruction we already played a cue for (catches "finished", which doesn't change currentPhase)
+
+// Non-visual (audio + vibration) cues for phase transitions, since users often
+// have their eyes closed during a breathing exercise and would otherwise miss them.
+function PlayPhaseCue() {
+    if (instruction === "Breathing exercise finished") {
+        if (lastCuedInstruction !== instruction) {
+            playTone(523, 180);
+            vibrate([120, 80, 120, 80, 120]);
+        }
+        lastCuedInstruction = instruction;
+        lastCuedPhase = currentPhase;
+        return;
+    }
+    lastCuedInstruction = instruction;
+
+    if (currentPhase === lastCuedPhase) return;
+    lastCuedPhase = currentPhase;
+
+    switch (currentPhase) {
+        case phase.HYPERVENTILATION:
+            playTone(440, 150);
+            vibrate(100);
+            break;
+        case phase.BREATHHOLD:
+            playTone(220, 300);
+            vibrate(200);
+            break;
+        case phase.RECOVERYBREATH:
+            playTone(330, 150);
+            vibrate(100);
+            break;
+    }
+}
+
 // Function for controlling View based on Model
 var controllerModelListener = function () {
+
+    PlayPhaseCue();
 
     // Controlling circle
     if (breatheIn) {
@@ -64,6 +102,12 @@ function StartBtnClicked() {
     // Start
     else {
         moduleRunning = true;
+
+        // Create/unlock the AudioContext here, inside a user-gesture handler,
+        // since browsers block audio playback that isn't triggered by one.
+        ensureAudioContext();
+        lastCuedPhase = null;
+        lastCuedInstruction = null;
 
         // Update button text
         startStopBtn.innerHTML = "Stop";
